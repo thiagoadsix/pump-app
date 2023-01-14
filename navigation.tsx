@@ -8,6 +8,7 @@ import { ExerciseDetailScreen } from './src/screens/ExerciseDetailScreen';
 import { Exercises } from './src/screens/Exercises';
 import { Home } from './src/screens/Home';
 import { TargetScreen } from './src/screens/TargetScreen';
+import { WorkoutDetailScreen } from './src/screens/WorkoutDetailScreen';
 import { WorkoutsScreen } from './src/screens/WorkoutsScreen';
 
 export type RootStackParamList = {
@@ -23,6 +24,7 @@ export type RootStackParamList = {
   BodyPartScreen: undefined
   WorkoutsScreen: undefined
   CreateWorkoutScreen: undefined
+  WorkoutDetailScreen: { workout: any }
 };
 
 
@@ -57,6 +59,11 @@ export const Navigation: React.FC = () => {
           name="WorkoutsScreen"
           component={WorkoutsScreen}
           options={{ title: 'WorkoutsScreen' }}
+        />
+        <Stack.Screen
+          name="WorkoutDetailScreen"
+          component={WorkoutDetailScreen}
+          options={{ title: 'WorkoutDetailScreen' }}
         />
         <Stack.Screen
           name='CreateWorkoutScreen'
