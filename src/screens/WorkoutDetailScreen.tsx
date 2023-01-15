@@ -13,12 +13,12 @@ export const WorkoutDetailScreen = ({ navigation, route }: NativeStackScreenProp
   }
 
   return (
-    <View style={styles.screenContainer}>
+    <View style={styles.container}>
       <View style={styles.workoutContainer}>
         <Text style={styles.workoutName}>{params.workout.title}</Text>
         <Text style={styles.exerciseCount}>Exercises: {params.workout.exercises.length}</Text>
       </View>
-      <View style={styles.container}>
+      <View style={styles.listExerciseContainer}>
         <ScrollView style={styles.listContainer}>
           {params.workout.exercises.map((exercise: ExerciseI, index: React.Key | null | undefined) => (
             <ExerciseComponent key={index} exercise={exercise} handlePress={handleExercisePress} />
@@ -30,9 +30,10 @@ export const WorkoutDetailScreen = ({ navigation, route }: NativeStackScreenProp
 };
 
 const styles = StyleSheet.create({
-  screenContainer: {
+  container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
+    padding: 20,
   },
   workoutContainer: {
     backgroundColor: 'white',
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     color: 'gray',
     marginBottom: 10,
   },
-  container: {
+  listExerciseContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   listContainer: {
     width: '100%',
     maxWidth: 400,
-    padding: 15,
+    marginTop: 20
   }
 });
 

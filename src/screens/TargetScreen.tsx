@@ -72,18 +72,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button: {
-    padding: 15,
-    borderRadius: 5,
-    marginRight: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
   listContainer: {
     width: '100%',
     maxWidth: 400,

@@ -33,21 +33,6 @@ export function CreateWorkoutScreen({ navigation }: NativeStackScreenProps<RootS
 }
 
 const styles = StyleSheet.create({
-  containerA: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-    padding: 15,
-  },
-  equipmentContainerA: {
-    padding: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  listContainerA: {
-    width: '100%',
-    maxWidth: 400,
-    padding: 15,
-  },
   container: {
     flex: 1,
     padding: 20,
@@ -59,21 +44,6 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
   },
-  exerciseContainer: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 10,
-    marginVertical: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  selectedExercise: {
-    backgroundColor: '#e5e5e5',
-  },
-  exerciseName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
   createButton: {
     backgroundColor: 'black',
     padding: 10,
@@ -84,28 +54,5 @@ const styles = StyleSheet.create({
   createButtonText: {
     color: 'white',
     fontWeight: 'bold',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 20,
-  },
-  button: {
-    backgroundColor: 'white',
-    borderRadius: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginHorizontal: 5,
-    borderWidth: 1,
-    borderColor: 'gray',
-  },
-  selectedButton: {
-    backgroundColor: '#e5e5e5',
-    borderColor: 'black',
-  },
-  buttonText: {
-    color: 'gray',
-    fontWeight: 'bold',
-  },
+  }
 });

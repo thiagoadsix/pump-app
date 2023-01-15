@@ -13,7 +13,7 @@ export const ExerciseComponent: React.FC<Props> = ({ exercise, handlePress }) =>
         style={styles.image}
         source={{ uri: exercise.url }}
       />
-      <View style={styles.exerciseTextContainer}>
+      <View style={styles.exerciseDetailContainer}>
         <Text style={styles.name}>{exercise.name}</Text>
         <Text style={styles.equipment}>Equipment: {exercise.equipment}</Text>
         <Text style={styles.target}>Target: {exercise.target}</Text>
@@ -24,24 +24,6 @@ export const ExerciseComponent: React.FC<Props> = ({ exercise, handlePress }) =>
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    width: '100%'
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 20,
-  },
-  listContainer: {
-    width: '100%',
-    maxWidth: 400,
-    padding: 15,
-  },
   exerciseContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -57,7 +39,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginRight: 15,
   },
-  exerciseTextContainer: {
+  exerciseDetailContainer: {
     flex: 1,
   },
   name: {
