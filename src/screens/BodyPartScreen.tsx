@@ -21,7 +21,7 @@ export function BodyPartScreen({ navigation }: NativeStackScreenProps<RootStackP
     navigation.navigate('ExerciseDetailScreen', { exercise });
   };
 
-  const bodyParts = ['back', 'card', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist'
+  const bodyParts = ['back', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist'
   ];
 
   return (
@@ -46,28 +46,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    padding: 15,
+    padding: 20,
   },
   bodyPartContainer: {
-    padding: 15,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  button: {
-    padding: 15,
-    borderRadius: 5,
-    marginRight: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 18,
   },
   listContainer: {
+    marginTop: 20,
     width: '100%',
     maxWidth: 400,
-    padding: 15,
   }
 });

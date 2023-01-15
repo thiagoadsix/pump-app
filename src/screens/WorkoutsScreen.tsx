@@ -1,5 +1,5 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { RootStackParamList } from '../../navigation';
 import { fetchSingle } from '../api/axios';
@@ -32,8 +32,8 @@ export function WorkoutsScreen({ navigation }: NativeStackScreenProps<RootStackP
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Workouts</Text>
+      <View style={styles.containerHead}>
+        <Text style={styles.titleHead}>Workouts</Text>
         <TouchableOpacity style={styles.createWorkoutButton} onPress={handleAddPress}>
           <Text style={styles.createWorkoutButtonText}>Create Workout</Text>
         </TouchableOpacity>
@@ -62,6 +62,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
     padding: 20,
+  },
+  containerHead: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16
+  },
+  titleHead: {
+    fontSize: 24, 
+    fontWeight: 'bold'
   },
   createWorkoutButton: {
     backgroundColor: 'black',
