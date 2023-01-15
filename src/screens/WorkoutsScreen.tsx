@@ -39,6 +39,7 @@ export function WorkoutsScreen({ navigation }: NativeStackScreenProps<RootStackP
         </TouchableOpacity>
       </View>
       <FlatList
+        showsVerticalScrollIndicator={false} 
         data={workouts}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (

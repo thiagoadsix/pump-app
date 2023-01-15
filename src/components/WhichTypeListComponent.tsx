@@ -10,6 +10,7 @@ interface WhichTypeListContainerProps {
 export const WhichTypeListComponent: React.FC<WhichTypeListContainerProps> = ({ selected, setSelected, data, horizontal }) => {
   return (
       <FlatList
+          showsHorizontalScrollIndicator={false}
           data={data}
           keyExtractor={item => item}
           renderItem={({ item }) => (

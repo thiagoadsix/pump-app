@@ -64,6 +64,7 @@ export const ExerciseDetailScreen = ({ navigation, route }: NativeStackScreenPro
               </TouchableOpacity>
             </View>
             <FlatList
+              showsVerticalScrollIndicator={false}
               data={workouts}
               renderItem={({ item }) => (
                 <View style={styles.workoutContainer}>
@@ -119,6 +120,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
+    maxHeight: "45%"
   },
   modalHeader: {
     flexDirection: 'row',

@@ -34,7 +34,7 @@ export function BodyPartScreen({ navigation }: NativeStackScreenProps<RootStackP
           horizontal
         />
       </View>
-      <ScrollView style={styles.listContainer}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.listContainer}>
         {exercises.map((exercise, index) => (
           <ExerciseComponent key={index} exercise={exercise} handlePress={handlePress} />
         ))}
