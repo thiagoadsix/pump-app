@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { View, Text, Image, StyleSheet, TouchableOpacity, LayoutAnimation, Modal, Platform, UIManager, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, StyleSheet, FlatList, Image } from 'react-native';
 import { RootStackParamList } from '../../navigation';
 import { fetchPost, fetchSingle } from '../api/axios';
 
-export function ExerciseDetailScreen({ navigation, route }: NativeStackScreenProps<RootStackParamList, 'ExerciseDetailScreen'>) {
+export const ExerciseDetailScreen = ({ navigation, route }: NativeStackScreenProps<RootStackParamList, 'ExerciseDetailScreen'>) => {
   const userIdMocked = '4cb4866b-a240-419a-b4f2-3d762d29eb17'
   const params = route.params;
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [workouts, setWorkouts] = useState<Array<any>>([])
   const [exerciseIds, setExerciseIds] = useState<Array<string>>([]);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setExerciseIds([params.exercise.id])
@@ -20,27 +20,18 @@ export function ExerciseDetailScreen({ navigation, route }: NativeStackScreenPro
       })
   }, [])
 
-  if (Platform.OS === 'android') {
-    if (UIManager.setLayoutAnimationEnabledExperimental) {
-      UIManager.setLayoutAnimationEnabledExperimental(true);
-    }
-  }
-
-  const handleCloseModal = () => {
-    LayoutAnimation.configureNext({
-      duration: 200,
-      update: {
-        type: LayoutAnimation.Types.easeInEaseOut,
-        property: LayoutAnimation.Properties.opacity,
-      },
-    });
-    setIsVisible(false);
-  };
-
   const handleAddExerciseToWorkoutList = async (workoutId: string) => {
     await fetchPost(`local/workouts/${workoutId}/exercise`, 'post', { exerciseIds })
-    setIsVisible(false)
+    setIsModalVisible(false)
   }
+
+  const handleOpenModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -52,48 +43,44 @@ export function ExerciseDetailScreen({ navigation, route }: NativeStackScreenPro
         <Text style={styles.bodyPart}>Body part: {params.exercise.bodyPart}</Text>
       </View>
       <TouchableOpacity
-        onPress={() => setIsVisible(true)}
+        onPress={handleOpenModal}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Add to workout list</Text>
       </TouchableOpacity>
       <Modal
-        animationType="none"
+        animationType="slide"
         transparent={true}
-        visible={isVisible}
+        visible={isModalVisible}
         onRequestClose={handleCloseModal}
+        style={styles.modal}
       >
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
-            <View style={[styles.modalContainer, { flex: 1, flexDirection: 'column', position: 'relative' }]}>
-              <View style={styles.headerModalContainer}>
-                <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Workouts</Text>
-                <TouchableOpacity onPress={handleCloseModal}>
-                  <Text>Close</Text>
-                </TouchableOpacity>
-              </View>
-
-              <FlatList
-                style={{ width: '100%', flex: 1 }}
-                data={workouts}
-                renderItem={({ item }) => (
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Text>{item.title}</Text>
-                    <TouchableOpacity style={styles.addButton} onPress={() => handleAddExerciseToWorkoutList(item.id)
-                    }>
-                      <Text style={styles.addButtonText}>Add</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-                keyExtractor={item => item.id}
-              />
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Workouts</Text>
+              <TouchableOpacity onPress={handleCloseModal}>
+                <Text>Close</Text>
+              </TouchableOpacity>
             </View>
+            <FlatList
+              data={workouts}
+              renderItem={({ item }) => (
+                <View style={styles.workoutContainer}>
+                  <Text style={styles.workoutTitle}>{item.title}</Text>
+                  <TouchableOpacity style={styles.addButton} onPress={() => handleAddExerciseToWorkoutList(item.id)}>
+                    <Text>Add</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+              keyExtractor={(item) => item.id}
+            />
           </View>
         </View>
       </Modal>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -101,10 +88,63 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
     padding: 20,
   },
-  detailContainer: {
-    alignSelf: 'flex-start',
-    alignItems: 'flex-start',
+  button: {
+    backgroundColor: '#333',
+    padding: 10,
+    alignSelf: 'center',
+    marginTop: 20,
+    borderRadius: 8,
+    width: '100%',
+    alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
+  modal: {
+    flex: 0.5,
+    alignSelf: 'flex-end',
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  modalContainer: {
+    backgroundColor: 'white',
+    width: '100%',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 20,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  modalTitle: {
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  workoutContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    marginVertical: 5,
+  },
+  workoutTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  addButton: {
+    backgroundColor: 'lightgreen',
+    padding: 5,
+    borderRadius: 4,
   },
   image: {
     width: '100%',
@@ -112,6 +152,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: 20,
     alignSelf: 'flex-start',
+  },
+  detailContainer: {
+    alignSelf: 'flex-start',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
   name: {
     fontSize: 28,
@@ -133,46 +178,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#555',
   },
-  button: {
-    backgroundColor: '#333',
-    padding: 10,
-    alignSelf: 'center',
-    marginTop: 20,
-    borderRadius: 8,
-    width: '100%',
-    height: '8%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-  modalBackground: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-  modalContainer: {
-    backgroundColor: 'white',
-    padding: 20,
-    width: '100%',
-    height: '45%',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  headerModalContainer: { flex: 1, flexDirection: 'row', justifyContent: 'space-between' },
-  addButton: {
-    backgroundColor: 'black',
-    padding: 10,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  addButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-})
+});

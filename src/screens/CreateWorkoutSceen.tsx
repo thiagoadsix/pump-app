@@ -1,101 +1,18 @@
-import { View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation';
-import { fetchSingle } from '../api/axios';
-import { WhichTypeListComponent } from '../components/WhichTypeListComponent';
-import { ExerciseComponent } from '../components/ExerciseComponent';
-
-const equipments = [
-  'assisted',
-  'band',
-  'barbell',
-  'body weight',
-  'bosu ball',
-  'cable',
-  'dumbbell',
-  'elliptical machine',
-  'ez barbell',
-  'hammer',
-  'kettlebell',
-  'leverage machine',
-  'medicine ball',
-  'olympic barbell',
-  'resistance band',
-  'roller',
-  'rope',
-  'skierg machine',
-  'sled machine',
-  'smith machine',
-  'stability ball',
-  'stationary bike',
-  'stepmill machine',
-  'tire',
-  'trap bar',
-  'upper body ergometer',
-  'weighted',
-  'wheel roller'
-];
-
-interface Exercise {
-  id: string;
-  name: string;
-  equipment: string;
-  target: string;
-  bodyPart: string;
-}
-
-const data: Array<Exercise> = [
-  // data here
-  { id: "1", name: 'Chest and Triceps', equipment: 'Rope', target: 'Chest', bodyPart: 'Chest' },
-  { id: "2", name: 'Chest and Triceps', equipment: 'Rope', target: 'Chest', bodyPart: 'Chest' },
-  { id: "3", name: 'Chest and Triceps', equipment: 'Rope', target: 'Chest', bodyPart: 'Chest' },
-];
+import { fetchPost } from '../api/axios';
 
 export function CreateWorkoutScreen({ navigation }: NativeStackScreenProps<RootStackParamList, 'CreateWorkoutScreen'>) {
-  const [workoutName, setWorkoutName] = useState<string>('');
-  const [selectedExercises, setSelectedExercises] = useState<Array<string>>([]);
-  const [selectedButton, setSelectedButton] = useState<string>();
-  const [exercises, setExercises] = useState<Array<any>>([]);
-  const [selected, setSelected] = useState<string>('assisted');
-  const buttons = [
-    { title: 'Equipment' },
-    { title: 'Target' },
-    { title: 'Body-Part' },
-  ];
+  const userIdMocked = '4cb4866b-a240-419a-b4f2-3d762d29eb17'
 
-  const handleExercisePress = (exercise: Exercise) => {
-    if (selectedExercises.includes(exercise.id)) {
-      setSelectedExercises(selectedExercises.filter(id => id !== exercise.id));
-    } else {
-      setSelectedExercises([...selectedExercises, exercise.id]);
-    }
-  };
+  const [workoutName, setWorkoutName] = useState<string>('');
 
   const handleCreatePress = () => {
-    // handle workout creation here
-  };
-
-  const handlePress = () => {}
-
-  const onButtonPress = (which: string) => {
-    setSelectedButton(which);
-
-    const screensMap = {
-      Equipment: 'equipment',
-      Target: 'target',
-      'Body-Part': 'body-part'
-    } as any
-
-    console.log({ which })
-
-    fetchSingle(`local/exercises/${screensMap[which]}/${selected}`, 'get')
-      .then(result => {
-        setExercises(result);
-      });
-
-    // navigation.navigate(screensMap[which])
+    fetchPost('local/workouts', 'post', { title: workoutName, userId: userIdMocked }).then(() => {
+      navigation.navigate('BodyPartScreen')
+    })
   };
 
   return (
@@ -104,49 +21,10 @@ export function CreateWorkoutScreen({ navigation }: NativeStackScreenProps<RootS
         style={styles.input}
         value={workoutName}
         onChangeText={setWorkoutName}
+        autoFocus={true}
+        editable={true}
         placeholder="Workout Name"
       />
-      <View style={styles.buttonContainer}>
-        {buttons.map((button, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[styles.button, selectedButton === button.title && styles.selectedButton]}
-            onPress={() => onButtonPress(button.title)}
-          >
-            <Text style={styles.buttonText}>{button.title}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      {selectedButton && <View style={styles.containerA}>
-        <View style={styles.equipmentContainerA}>
-          <WhichTypeListComponent
-            data={equipments}
-            selected={selected}
-            setSelected={setSelected}
-            horizontal
-          />
-        </View>
-        <ScrollView style={styles.listContainerA}>
-          {exercises.map((exercise, index) => (
-            <ExerciseComponent key={index} exercise={exercise} handlePress={handlePress} />
-          ))}
-        </ScrollView>
-      </View>}
-      {/* <FlatList
-        data={data}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={[
-              styles.exerciseContainer,
-              selectedExercises.includes(item.id) && styles.selectedExercise
-            ]}
-            onPress={() => handleExercisePress(item)}
-          >
-            <Text style={styles.exerciseName}>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      /> */}
       <TouchableOpacity style={styles.createButton} onPress={handleCreatePress}>
         <Text style={styles.createButtonText}>Create Workout</Text>
       </TouchableOpacity>
@@ -179,7 +57,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 10,
-    marginVertical: 10,
     fontSize: 16,
   },
   exerciseContainer: {
@@ -202,7 +79,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 16,
   },
   createButtonText: {
     color: 'white',
