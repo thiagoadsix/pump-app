@@ -8,7 +8,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix"
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "prepare": "husky install",
+    "commit": "git add . && git-cz",
+    "release": "standard-version"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.2",
@@ -33,18 +36,30 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@types/axios": "^0.14.0",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.70.6",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
+    "commitizen": "^4.3.0",
+    "commitlint": "^17.4.2",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-react": "^7.32.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
     "prettier": "^2.8.3",
     "reactotron-react-native": "^5.0.3",
+    "standard-version": "^9.5.0",
     "typescript": "^4.9.4"
   },
-  "private": true
+  "private": true,
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
