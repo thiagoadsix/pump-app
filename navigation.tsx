@@ -2,11 +2,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { BodyPartScreen } from './src/screens/BodyPartScreen'
 import { CreateWorkoutScreen } from './src/screens/CreateWorkoutScreen'
-import { EquipmentScreen } from './src/screens/EquipmentScreen'
 import { ExerciseDetailScreen } from './src/screens/ExerciseDetailScreen'
 import { ExercisesScreen } from './src/screens/ExercisesScreen'
 import { HomeScreen } from './src/screens/HomeScreen'
-import { TargetScreen } from './src/screens/TargetScreen'
 import { WorkoutDetailScreen } from './src/screens/WorkoutDetailScreen'
 import { WorkoutsScreen } from './src/screens/WorkoutsScreen'
 import { AddExerciseToWorkoutScreen } from './src/screens/AddExerciseToWorkoutScreen'
@@ -19,8 +17,6 @@ export type RootStackParamList = {
   ExerciseDetailScreen: {
     exercise: any
   };
-  EquipmentScreen: undefined;
-  TargetScreen: undefined;
   BodyPartScreen: undefined
   WorkoutsScreen: undefined
   CreateWorkoutScreen: undefined
@@ -48,16 +44,6 @@ export const Navigation: React.FC = () => {
 				<Stack.Screen
 					name='HomeScreen'
 					component={HomeScreen}
-				/>
-				<Stack.Screen
-					name="EquipmentScreen"
-					component={EquipmentScreen}
-					options={{ title: 'Equipments' }}
-				/>
-				<Stack.Screen
-					name="TargetScreen"
-					component={TargetScreen}
-					options={{ title: 'Target' }}
 				/>
 				<Stack.Screen
 					name="BodyPartScreen"
