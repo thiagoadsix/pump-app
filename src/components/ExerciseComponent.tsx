@@ -1,4 +1,6 @@
-import { Image, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { ActivityIndicator } from 'react-native';
+import { Pressable, Image, Box, Text, Skeleton } from 'native-base';
 import { ExerciseI } from '../interfaces/ExerciseI';
 
 interface Props {
@@ -7,59 +9,74 @@ interface Props {
 }
 
 export const ExerciseComponent: React.FC<Props> = ({ exercise, handlePress }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
-    <TouchableOpacity style={styles.exerciseContainer} onPress={() => handlePress(exercise)}>
+    <Pressable
+      flexDirection='row'
+      alignItems='center'
+      backgroundColor='primary.600'
+      padding="15"
+      marginBottom="15"
+      borderRadius="5"
+      onPress={() => handlePress(exercise)}
+    >
       <Image
-        style={styles.image}
+        alt={exercise.name}
+        width="90"
+        height="90"
+        borderRadius="5"
+        marginRight="15"
         source={{ uri: exercise.url }}
+        onLoad={() => setImageLoaded(true)}
       />
-      <View style={styles.exerciseDetailContainer}>
-        <Text style={styles.name}>{exercise.name}</Text>
-        <Text style={styles.equipment}>Equipment: {exercise.equipment}</Text>
-        <Text style={styles.target}>Target: {exercise.target}</Text>
-        <Text style={styles.bodyPart}>Body part: {exercise.bodyPart}</Text>
-      </View>
-    </TouchableOpacity>
+      {
+        !imageLoaded && (
+          <Box
+            flexDirection='row'
+            alignItems='center'
+            backgroundColor='primary.600'
+            padding="15"
+            marginBottom="15"
+            borderRadius="5">
+            <Box
+              display="flex"
+              flex={1}
+            >
+              <Skeleton.Text fontSize="16" lines={4} width="65%"/>
+            </Box>
+          </Box>
+        )
+      }
+      {
+        imageLoaded && (
+          <Box
+            display="flex"
+            flex={1}
+          >
+            <Text
+              fontSize="16"
+              fontWeight="bold"
+              color="general.900"
+            >{exercise.name}</Text>
+            <Text
+              fontSize="14"
+              color="general.900"
+              marginTop="1"
+            >Equipment: {exercise.equipment}</Text>
+            <Text
+              fontSize="14"
+              color="general.900"
+              marginTop="1"
+            >Target: {exercise.target}</Text>
+            <Text
+              fontSize="14"
+              color="general.900"
+              marginTop="1"
+            >Body part: {exercise.bodyPart}</Text>
+          </Box>
+        )
+      }
+    </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  exerciseContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 15,
-    marginBottom: 15,
-    borderRadius: 5,
-    elevation: 1,
-  },
-  image: {
-    width: 90,
-    height: 90,
-    borderRadius: 25,
-    marginRight: 15,
-  },
-  exerciseDetailContainer: {
-    flex: 1,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  equipment: {
-    fontSize: 16,
-    color: '#555',
-    marginTop: 8,
-  },
-  target: {
-    fontSize: 16,
-    color: '#555',
-    marginTop: 8,
-  },
-  bodyPart: {
-    fontSize: 16,
-    color: '#555',
-    marginTop: 8,
-  },
-});

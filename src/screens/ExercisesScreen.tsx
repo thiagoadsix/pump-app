@@ -7,7 +7,7 @@ import { fetchSingle } from '../api/axios';
 import { ExerciseComponent } from '../components/ExerciseComponent';
 
 
-export function Exercises({ navigation }: NativeStackScreenProps<RootStackParamList, 'Exercises'>) {
+export function ExercisesScreen({ navigation }: NativeStackScreenProps<RootStackParamList, 'ExercisesScreen'>) {
   const [data, setData] = useState<any[]>([{}])
 
   useEffect(() => {

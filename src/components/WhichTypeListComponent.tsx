@@ -1,4 +1,4 @@
-import { FlatList, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { FlatList, Pressable, Text } from "native-base";
 
 interface WhichTypeListContainerProps {
   selected: string;
@@ -10,36 +10,29 @@ interface WhichTypeListContainerProps {
 export const WhichTypeListComponent: React.FC<WhichTypeListContainerProps> = ({ selected, setSelected, data, horizontal }) => {
   return (
       <FlatList
-          showsHorizontalScrollIndicator={false}
-          data={data}
-          keyExtractor={item => item}
-          renderItem={({ item }) => (
-              <TouchableOpacity
-                  style={[
-                      styles.button,
-                      { backgroundColor: item === selected ? 'gray' : 'white' }
-                  ]}
-                  onPress={() => setSelected(item)}
-              >
-                  <Text style={styles.buttonText}>{item}</Text>
-              </TouchableOpacity>
-          )}
-          horizontal={horizontal}
+        showsHorizontalScrollIndicator={false}
+        data={data}
+        keyExtractor={item => item}
+        horizontal={horizontal}
+        renderItem={({ item }) => (
+          <Pressable
+            padding="4"
+            borderRadius="5"
+            marginRight="3"
+            alignItems="center"
+            justifyContent="center"
+            backgroundColor={item === selected ? "secondary.600" : "primary.600"}
+            onPress={() => setSelected(item)}
+          >
+            <Text
+              color="general.900"
+              fontWeight={item === selected ? 'bold' : 'normal'}
+              fontSize="16"
+            >
+              {item}
+            </Text>
+          </Pressable>
+        )}
       />
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    padding: 15,
-    borderRadius: 5,
-    marginRight: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 18,
-  }
-});

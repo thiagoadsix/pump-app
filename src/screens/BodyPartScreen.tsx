@@ -1,8 +1,10 @@
-import { View, StyleSheet, ScrollView } from 'react-native';
 import { useEffect, useState } from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Box, FlatList } from 'native-base';
+
 import { fetchSingle } from '../api/axios';
 import { RootStackParamList } from '../../navigation';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { ExerciseComponent } from '../components/ExerciseComponent';
 import { WhichTypeListComponent } from '../components/WhichTypeListComponent';
 
@@ -25,36 +27,34 @@ export function BodyPartScreen({ navigation }: NativeStackScreenProps<RootStackP
   ];
 
   return (
-    <View style={styles.container}>
-      <View style={styles.bodyPartContainer}>
+    <Box
+      display="flex"
+      flex="1"
+      backgroundColor="primary.900"
+      padding="5"
+    >
+      <Box
+        alignItems="center"
+        justifyContent="center"
+      >
         <WhichTypeListComponent
           data={bodyParts}
           selected={selected}
           setSelected={setSelected}
           horizontal
         />
-      </View>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.listContainer}>
-        {exercises.map((exercise, index) => (
-          <ExerciseComponent key={index} exercise={exercise} handlePress={handlePress} />
-        ))}
-      </ScrollView>
-    </View>
+      </Box>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={exercises}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <ExerciseComponent key={item.id} exercise={item} handlePress={handlePress} />
+        )}
+        marginTop="5"
+        width="100%"
+        maxWidth={400}
+      />
+    </Box>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-    padding: 20,
-  },
-  bodyPartContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  listContainer: {
-    marginTop: 20,
-    width: '100%',
-    maxWidth: 400,
-  }
-});

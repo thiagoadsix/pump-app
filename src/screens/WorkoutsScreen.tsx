@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Box, FlatList, Pressable, Text } from 'native-base';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { RootStackParamList } from '../../navigation';
 import { fetchSingle } from '../api/axios';
 
@@ -26,97 +26,93 @@ export function WorkoutsScreen({ navigation }: NativeStackScreenProps<RootStackP
   };
 
   const handleWorkoutPress = (workout: any) => {
-    console.log({ workout })
     navigation.navigate('WorkoutDetailScreen', { workout })
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.containerHead}>
-        <Text style={styles.titleHead}>Workouts</Text>
-        <TouchableOpacity style={styles.createWorkoutButton} onPress={handleAddPress}>
-          <Text style={styles.createWorkoutButtonText}>Create Workout</Text>
-        </TouchableOpacity>
-      </View>
+    <Box
+      display="flex"
+      flex="1"
+      padding="5"
+      backgroundColor="primary.900"
+    >
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        marginBottom="5"
+      >
+        <Text
+          color="secondary.900"
+          fontWeight="bold"
+          fontSize="24"
+        >
+          Workouts
+        </Text>
+        <Pressable
+          height="10"
+          width="40"
+          borderColor="secondary.900"
+          borderWidth="2"
+          borderRadius="10"
+          alignItems="center"
+          justifyContent="center"
+          padding="2"
+          onPress={handleAddPress}
+        >
+          <Text
+            color="general.900"
+            fontWeight="bold"
+          >
+            Create Workout
+          </Text>
+        </Pressable>
+      </Box>
       <FlatList
         showsVerticalScrollIndicator={false} 
         data={workouts}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleWorkoutPress(item)}>
-            <View style={styles.workoutContainer}>
-              <Text style={styles.workoutName}>{item.title}</Text>
-              <Text style={styles.exerciseCount}>Exercises: {item.exercises.length}</Text>
-              <TouchableOpacity style={styles.removeButton} onPress={() => handleRemovePress(item.id)}>
-                <Text style={styles.removeButtonText}>Remove</Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
+          <Pressable onPress={() => handleWorkoutPress(item)}>
+            <Box
+              backgroundColor="primary.600"
+              borderRadius="10"
+              padding="5"
+              marginBottom="4"
+            >
+              <Text
+                fontWeight="bold"
+                fontSize="18"
+                color="general.900"
+              >
+                {item.name}
+              </Text>
+              <Text
+                fontWeight="normal"
+                fontSize="14"
+                color="general.900"
+              >
+                Exercises: {item.sets.length}
+              </Text>
+              <Pressable
+                backgroundColor="red.600"
+                borderRadius="6"
+                padding="2"
+                alignSelf="flex-end"
+                onPress={() => handleRemovePress(item.id)}
+              >
+                <Text
+                  color="general.900"
+                  fontWeight="bold"
+                >
+                  Remove
+                </Text>
+              </Pressable>
+            </Box>
+          </Pressable>
         )}
       />
-    </View>
+    </Box>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-    padding: 20,
-  },
-  containerHead: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16
-  },
-  titleHead: {
-    fontSize: 24, 
-    fontWeight: 'bold'
-  },
-  createWorkoutButton: {
-    backgroundColor: 'black',
-    borderRadius: 5,
-    alignSelf: 'center',
-    padding: 10,
-  },
-  createWorkoutButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  workoutContainer: {
-    backgroundColor: 'white',
-    borderRadius: 5,
-    padding: 20,
-    marginVertical: 10,
-  },
-  workoutName: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  exerciseCount: {
-    color: 'gray',
-    marginBottom: 10,
-  },
-  exerciseListContainer: {
-    marginBottom: 10,
-  },
-  exercise: {
-    marginLeft: 10,
-    marginBottom: 5,
-  },
-  removeButton: {
-    backgroundColor: 'red',
-    borderRadius: 5,
-    alignSelf: 'flex-end',
-    padding: 10,
-  },
-  removeButtonText: {
-    backgroundColor: 'red',
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  }
-})
