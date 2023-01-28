@@ -1,4 +1,3 @@
-import React from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Box, Text as TextNative } from 'native-base'
 import { RootStackParamList } from '../../navigation'
@@ -7,6 +6,7 @@ import { NavigationCardComponent } from '../components/NavigationCardComponent'
 type WhichScreen = 'BodyPartScreen' | 'WorkoutsScreen'
 
 export function HomeScreen({ navigation }: NativeStackScreenProps<RootStackParamList, 'HomeScreen'>) {
+	
 	const onButtonPress = (title: WhichScreen) => {
 		navigation.navigate(title)
 	}

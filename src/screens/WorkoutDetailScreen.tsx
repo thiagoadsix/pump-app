@@ -1,15 +1,15 @@
-import React from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Box, FlatList, Text } from 'native-base'
 
 import { RootStackParamList } from '../../navigation'
-import { ExerciseI } from '../interfaces/ExerciseI'
 import { SetComponent } from '../components/SetComponent'
+
+import { Exercise } from '../entities'
 
 export function WorkoutDetailScreen({ navigation, route }: NativeStackScreenProps<RootStackParamList, 'WorkoutDetailScreen'>) {
 	const params = route.params
 
-	const handleExercisePress = (exercise: ExerciseI) => {
+	const handleExercisePress = (exercise: Exercise) => {
 		navigation.navigate('ExerciseDetailScreen', { exercise })
 	}
 
@@ -49,7 +49,7 @@ export function WorkoutDetailScreen({ navigation, route }: NativeStackScreenProp
 					marginTop="5"
 					data={params.workout.sets}
 					renderItem={({ item }) => (
-						<SetComponent key={item.id} set={item} handlePress={handleExercisePress} />
+						<SetComponent key={item.id}  set={item} handlePress={handleExercisePress} />
 					)}
 				/>
 			</Box>

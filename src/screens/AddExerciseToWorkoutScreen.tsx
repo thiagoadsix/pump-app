@@ -1,18 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { KeyboardAvoidingView, Image, Text, Box, Input, Pressable, FlatList, Radio } from 'native-base'
 import { RootStackParamList } from '../../navigation'
 import { fetchPost, fetchSingle } from '../api/axios'
-import { color } from 'native-base/lib/typescript/theme/styled-system'
-
-interface Workout {
-  id: string;
-  userId: string;
-  name: string;
-  createdAt: string;
-  sets: any[];
-}
+import { Workout } from '../entities'
 
 export function AddExerciseToWorkoutScreen ({ navigation, route }: NativeStackScreenProps<RootStackParamList, 'AddExerciseToWorkoutScreen'>) {
 	const userIdMocked = '4cb4866b-a240-419a-b4f2-3d762d29eb17'
@@ -49,6 +41,7 @@ export function AddExerciseToWorkoutScreen ({ navigation, route }: NativeStackSc
 				}}
 			>
 				<Image
+					alt={exercise.name}
 					width='100%'
 					height='35%'
 					resizeMode='contain'
