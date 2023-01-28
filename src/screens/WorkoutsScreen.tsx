@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, FlatList, Pressable, Text } from 'native-base'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../navigation'
+import { RootStackParamList, WorkoutSetExercise } from '../../navigation'
 import { fetchSingle } from '../api/axios'
 
 export function WorkoutsScreen({ navigation }: NativeStackScreenProps<RootStackParamList, 'WorkoutsScreen'>) {
 	const userIdMocked = '4cb4866b-a240-419a-b4f2-3d762d29eb17'
 
-	const [workouts, setWorkouts] = useState<Array<any>>([])
+	const [workouts, setWorkouts] = useState<Array<WorkoutSetExercise>>([])
 
 	useEffect(() => {
 		fetchSingle(`local/workouts/user/${userIdMocked}`, 'get')
@@ -25,7 +25,7 @@ export function WorkoutsScreen({ navigation }: NativeStackScreenProps<RootStackP
 			.then(() => setWorkouts(workouts.filter(workout => workout.id !== workoutId)))
 	}
 
-	const handleWorkoutPress = (workout: any) => {
+	const handleWorkoutPress = (workout: WorkoutSetExercise) => {
 		navigation.navigate('WorkoutDetailScreen', { workout })
 	}
 

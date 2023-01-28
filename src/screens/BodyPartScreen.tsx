@@ -7,10 +7,11 @@ import { RootStackParamList } from '../../navigation'
 
 import { ExerciseComponent } from '../components/ExerciseComponent'
 import { WhichTypeListComponent } from '../components/WhichTypeListComponent'
+import { Exercise } from '../entities'
 
 export function BodyPartScreen({ navigation }: NativeStackScreenProps<RootStackParamList, 'BodyPartScreen'>) {
 	const [selected, setSelected] = useState<string>('back')
-	const [exercises, setExercises] = useState<Array<any>>([])
+	const [exercises, setExercises] = useState<Array<Exercise>>([])
 
 	useEffect(() => {
 		fetchSingle(`local/exercises/body-part/${selected}`, 'get')
@@ -19,7 +20,7 @@ export function BodyPartScreen({ navigation }: NativeStackScreenProps<RootStackP
 			})
 	}, [selected])
 
-	const handlePress = (exercise: any) => {
+	const handlePress = (exercise: Exercise) => {
 		navigation.navigate('ExerciseDetailScreen', { exercise })
 	}
 

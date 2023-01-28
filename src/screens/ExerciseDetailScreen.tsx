@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Image, Text, Pressable } from 'native-base'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
@@ -18,6 +17,7 @@ export function ExerciseDetailScreen({ navigation, route }: NativeStackScreenPro
 			padding="5"
 		>
 			<Image
+				alt={params.exercise.name}
 				borderRadius="30"
 				width='100%'
 				height='50%'

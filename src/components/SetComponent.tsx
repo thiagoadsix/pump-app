@@ -1,13 +1,17 @@
 import { useState } from 'react'
-import { Pressable, Image, Text, Box } from 'native-base'
-import { StyleSheet, ActivityIndicator } from 'react-native'
+import { Pressable, Image, Text, Box, Skeleton } from 'native-base'
+import { Exercise, Set } from '../entities'
 
-interface Props {
-  set: any;
-  handlePress: (exercise: any) => void;
+interface SetProps extends Set {
+	exercise: Exercise
 }
 
-export const SetComponent: React.FC<Props> = ({ set, handlePress }) => {
+interface SetComponentProps {
+  set: SetProps;
+  handlePress: (exercise: Exercise) => void;
+}
+
+export const SetComponent	: React.FC<SetComponentProps> = ({ set, handlePress }) => {
 	const [imageLoaded, setImageLoaded] = useState(false)
 
 	return (
@@ -15,12 +19,13 @@ export const SetComponent: React.FC<Props> = ({ set, handlePress }) => {
 			flexDirection='row'
 			alignItems='center'
 			backgroundColor='primary.600'
-			padding="3"
+			padding="15"
 			marginBottom="4"
 			borderRadius="5"
 			onPress={() => handlePress(set.exercise)}
 		>
 			<Image
+				alt={set.exercise.name}
 				width="90"
 				height="90"
 				borderRadius="5"
@@ -30,19 +35,20 @@ export const SetComponent: React.FC<Props> = ({ set, handlePress }) => {
 			/>
 			{
 				!imageLoaded && (
-					<ActivityIndicator
-						style={{
-							position: 'absolute',
-							left: 0,
-							right: 0,
-							top: 0,
-							bottom: 0,
-							alignItems: 'center',
-							justifyContent: 'center'
-						}}
-						size="large"
-						color="#0000ff"
-					/>
+					<Box
+						flexDirection='row'
+						alignItems='center'
+						backgroundColor='primary.600'
+						padding="15"
+						marginBottom="15"
+						borderRadius="5">
+						<Box
+							display="flex"
+							flex={1}
+						>
+							<Skeleton.Text fontSize="16" lines={4} width="65%"/>
+						</Box>
+					</Box>
 				)
 			}
 			{
@@ -59,10 +65,8 @@ export const SetComponent: React.FC<Props> = ({ set, handlePress }) => {
 							{set.exercise.name}
 						</Text>
 						<Text
-
 							fontSize="16"
 							color='general.900'
-							marginTop="2"
 						>
               Repetitions: {set.repetitions}x
 						</Text>
@@ -70,14 +74,12 @@ export const SetComponent: React.FC<Props> = ({ set, handlePress }) => {
 
 							fontSize="16"
 							color='general.900'
-							marginTop="2"
 						>
               Weight: {set.weight}kg
 						</Text>
 						<Text
 							fontSize="16"
 							color='general.900'
-							marginTop="2"
 						>
               Series: {set.series}x
 						</Text>

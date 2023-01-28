@@ -3,33 +3,35 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { BodyPartScreen } from './src/screens/BodyPartScreen'
 import { CreateWorkoutScreen } from './src/screens/CreateWorkoutScreen'
 import { ExerciseDetailScreen } from './src/screens/ExerciseDetailScreen'
-import { ExercisesScreen } from './src/screens/ExercisesScreen'
 import { HomeScreen } from './src/screens/HomeScreen'
 import { WorkoutDetailScreen } from './src/screens/WorkoutDetailScreen'
 import { WorkoutsScreen } from './src/screens/WorkoutsScreen'
 import { AddExerciseToWorkoutScreen } from './src/screens/AddExerciseToWorkoutScreen'
+import { Exercise, Set, Workout } from './src/entities'
+
+
+interface SetExercise extends Set {
+	exercise: Exercise
+}
+
+export interface WorkoutSetExercise extends Workout {
+	sets: SetExercise[]
+}
 
 export type RootStackParamList = {
-  HomeScreen: undefined,
-  ExercisesScreen: {
-    exercise: any
-  };
-  ExerciseDetailScreen: {
-    exercise: any
-  };
-  BodyPartScreen: undefined
-  WorkoutsScreen: undefined
-  CreateWorkoutScreen: undefined
-  WorkoutDetailScreen: { workout: {
-    id: string
-    userId: string
-    name: string
-    sets: any[]
-    createdAt: string
-  } }
-  AddExerciseToWorkoutScreen: {
-    exercise: any
-  }
+	HomeScreen: undefined,
+	ExerciseDetailScreen: {
+		exercise: Exercise
+	};
+	BodyPartScreen: undefined
+	WorkoutsScreen: undefined
+	CreateWorkoutScreen: undefined
+	WorkoutDetailScreen: {
+		workout: WorkoutSetExercise
+	}
+	AddExerciseToWorkoutScreen: {
+		exercise: Exercise
+	}
 };
 
 
@@ -69,11 +71,6 @@ export const Navigation: React.FC = () => {
 					name="AddExerciseToWorkoutScreen"
 					component={AddExerciseToWorkoutScreen}
 					options={{ title: 'Add exercise to workout' }}
-				/>
-				<Stack.Screen
-					name="ExercisesScreen"
-					component={ExercisesScreen}
-					options={{ title: 'Exercises' }}
 				/>
 				<Stack.Screen
 					name="ExerciseDetailScreen"

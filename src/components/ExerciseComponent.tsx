@@ -1,14 +1,13 @@
 import { useState } from 'react'
-import { ActivityIndicator } from 'react-native'
 import { Pressable, Image, Box, Text, Skeleton } from 'native-base'
-import { ExerciseI } from '../interfaces/ExerciseI'
+import { Exercise } from '../entities'
 
-interface Props {
-  exercise: ExerciseI;
-  handlePress: (exercise: any) => void;
+interface ExerciseComponentProps {
+  exercise: Exercise;
+  handlePress: (exercise: Exercise) => void;
 }
 
-export const ExerciseComponent: React.FC<Props> = ({ exercise, handlePress }) => {
+export const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ exercise, handlePress }) => {
 	const [imageLoaded, setImageLoaded] = useState(false)
 
 	return (
