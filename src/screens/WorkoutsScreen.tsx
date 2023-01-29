@@ -21,7 +21,7 @@ export function WorkoutsScreen({ navigation }: NativeStackScreenProps<RootStackP
 	}
 
 	const handleRemovePress = (workoutId: string) => {
-		fetchSingle(`/local/user/${userIdMocked}/workouts/${workoutId}`, 'delete')
+		fetchSingle(`/local/workouts/${workoutId}/user/${userIdMocked}`, 'delete')
 			.then(() => setWorkouts(workouts.filter(workout => workout.id !== workoutId)))
 	}
 

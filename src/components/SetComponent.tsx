@@ -71,18 +71,21 @@ export const SetComponent	: React.FC<SetComponentProps> = ({ set, handlePress })
               Repetitions: {set.repetitions}x
 						</Text>
 						<Text
-
-							fontSize="16"
-							color='general.900'
-						>
-              Weight: {set.weight}kg
-						</Text>
-						<Text
 							fontSize="16"
 							color='general.900'
 						>
               Series: {set.series}x
 						</Text>
+						{
+							set.exercise.equipment !== 'body weight' && (
+								<Text
+									fontSize="16"
+									color='general.900'
+								>
+              Weight: {set.weight}kg
+								</Text>
+							)
+						}
 					</Box>
 				)
 			}
