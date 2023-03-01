@@ -10,6 +10,9 @@ import { WorkoutDetailScreen } from '../src/screens/WorkoutDetailScreen'
 import { WorkoutsScreen } from '../src/screens/WorkoutsScreen'
 import { AddExerciseToWorkoutScreen } from '../src/screens/AddExerciseToWorkoutScreen'
 import { Exercise, Set, Workout } from '../src/entities'
+import React from 'react'
+import { SignUpScreen } from '../src/screens/SignUpScreen'
+import { SignInScreen } from '../src/screens/SingInScreen'
 
 
 interface SetExercise extends Set {
@@ -21,6 +24,8 @@ export interface WorkoutSetExercise extends Workout {
 }
 
 export type RootStackParamList = {
+	SignInScreen: undefined,
+	SignUpScreen: undefined,
 	HomeScreen: undefined,
 	ExerciseDetailScreen: {
 		exercise: Exercise
@@ -57,64 +62,92 @@ export const Navigation: React.FC = () => {
 					tabBarStyle: {
 						padding: 8,
 						backgroundColor: '#212121',
-					}
+						// borderColor: '#212121',
+						// borderTopColor: '#00E9D6',
+					},
+
 				})}
 			>
 				<Tab.Screen
 					name='Home'
-					component={() => (
-						<Stack.Navigator
-							initialRouteName='HomeScreen'
-							screenOptions={{
-								// title: 'PUMP',
-								headerStyle: {
-									backgroundColor: '#212121',
-								},
-								headerTintColor: '#fff',
-								headerTitleStyle: {
-									fontWeight: 'bold',
-									fontSize: 34,
-								},
-							}}
-						>
-							<Stack.Screen
-								name='HomeScreen'
-								component={HomeScreen}
-							/>
-							<Stack.Screen
-								name="BodyPartScreen"
-								component={BodyPartScreen}
-								options={{ title: 'Body Part' }}
-							/>
-							<Stack.Screen
-								name="WorkoutsScreen"
-								component={WorkoutsScreen}
-								options={{ title: 'Workouts' }}
-							/>
-							<Stack.Screen
-								name="WorkoutDetailScreen"
-								component={WorkoutDetailScreen}
-								options={{ title: 'Workouts Detail' }}
-							/>
-							<Stack.Screen
-								name='CreateWorkoutScreen'
-								component={CreateWorkoutScreen}
-								options={{ title: 'Create Workout' }}
-							/>
-							<Stack.Screen
-								name="AddExerciseToWorkoutScreen"
-								component={AddExerciseToWorkoutScreen}
-								options={{ title: 'Add exercise to workout' }}
-							/>
-							<Stack.Screen
-								name="ExerciseDetailScreen"
-								component={ExerciseDetailScreen}
-								options={{ title: 'Exercise Detail' }}
-							/>
-						</Stack.Navigator>
-					)}
+					component={Navigator}
 				/>
 			</Tab.Navigator>
 		</NavigationContainer>
+	)
+}
+
+const Navigator: React.FC = () => {
+	return (
+		<Stack.Navigator
+			initialRouteName='SignInScreen'
+			screenOptions={({ navigation, route }) => ({
+				// headerTitle: () => (<Icon/>)'PAPITO',
+				headerLeft: () => {
+					if (route.name !== 'SignInScreen') {
+						return (
+							<Octicons
+								name='arrow-left'
+								size={24}
+								color='#00E9D6'
+								style={{ paddingLeft: 16 }}
+								onPress={() => navigation.goBack()}
+							/>
+						)
+					} else {
+						return null
+					}
+				},
+				headerStyle: {
+					backgroundColor: '#212121',
+					shadowColor: 'pink'
+				},
+				// headerShadowVisible: false,
+				headerTintColor: '#fff',
+			})}
+		>
+			<Stack.Screen
+				name='SignInScreen'
+				component={SignInScreen}
+			/>
+			<Stack.Screen
+				name='SignUpScreen'
+				component={SignUpScreen}
+			/>
+			<Stack.Screen
+				name='HomeScreen'
+				component={HomeScreen}
+			/>
+			<Stack.Screen
+				name="BodyPartScreen"
+				component={BodyPartScreen}
+				options={{ title: 'Body Part' }}
+			/>
+			<Stack.Screen
+				name="WorkoutsScreen"
+				component={WorkoutsScreen}
+				options={{ title: 'Workouts' }}
+			/>
+			<Stack.Screen
+				name="WorkoutDetailScreen"
+				component={WorkoutDetailScreen}
+				options={{ title: 'Workouts Detail' }}
+			/>
+			<Stack.Screen
+				name='CreateWorkoutScreen'
+				component={CreateWorkoutScreen}
+				options={{ title: 'Create Workout' }}
+			/>
+			<Stack.Screen
+				name="AddExerciseToWorkoutScreen"
+				component={AddExerciseToWorkoutScreen}
+				options={{ title: 'Add exercise to workout' }}
+			/>
+			<Stack.Screen
+				name="ExerciseDetailScreen"
+				component={ExerciseDetailScreen}
+				options={{ title: 'Exercise Detail' }}
+			/>
+		</Stack.Navigator>
 	)
 }

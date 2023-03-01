@@ -5,6 +5,8 @@ import { BodyPartScreen } from '../src/screens/BodyPartScreen'
 import { CreateWorkoutScreen } from '../src/screens/CreateWorkoutScreen'
 import { ExerciseDetailScreen } from '../src/screens/ExerciseDetailScreen'
 import { HomeScreen } from '../src/screens/HomeScreen'
+import { SignUpScreen } from '../src/screens/SignUpScreen'
+import { SignInScreen } from '../src/screens/SingInScreen'
 import { WorkoutDetailScreen } from '../src/screens/WorkoutDetailScreen'
 import { WorkoutsScreen } from '../src/screens/WorkoutsScreen'
 
@@ -18,6 +20,8 @@ export interface WorkoutSetExercise extends Workout {
 }
 
 export type RootStackParamList = {
+	SignInScreen: undefined,
+	SignUpScreen: undefined,
 	HomeScreen: undefined,
 	ExerciseDetailScreen: {
 		exercise: Exercise
@@ -38,6 +42,14 @@ const Stack = createStackNavigator<RootStackParamList>()
 export const HomeNavigation = () => {
 	return (
 		<Stack.Navigator>
+			<Stack.Screen
+				name='SignInScreen'
+				component={SignInScreen}
+			/>
+			<Stack.Screen
+				name='SignUpScreen'
+				component={SignUpScreen}
+			/>
 			<Stack.Screen
 				name='HomeScreen'
 				component={HomeScreen}
@@ -75,6 +87,10 @@ export const WorkoutNavigation = () => {
 export const StackNavigation = () => {
 	return (
 		<Stack.Navigator>
+			<Stack.Screen
+				name='SignUpScreen'
+				component={SignUpScreen}
+			/>
 			<Stack.Screen
 				name='HomeScreen'
 				component={HomeScreen}

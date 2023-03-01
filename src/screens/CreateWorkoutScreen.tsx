@@ -17,44 +17,48 @@ export function CreateWorkoutScreen({ navigation }: NativeStackScreenProps<RootS
 	}
 
 	return (
-		<Box
-			display="flex"
-			flex={1}
-			padding="5"
-			backgroundColor="primary.900"
-		>
-			<Input
-				value={workoutName}
-				onChangeText={setWorkoutName}
-				autoFocus={true}
-				editable={true}
-				autoComplete="off"
-				autoCapitalize="none"
-				autoCorrect={false}
-				placeholder="Workout Name"
-				borderColor="secondary.900"
-				borderWidth="2"
-				variant="filled"
-				color="general.900"
-				_focus={{color: 'general.900'}}
-			/>
-			<Pressable
-				borderColor="secondary.900"
-				borderWidth="2"
-				borderRadius="10"
-				alignItems="center"
-				justifyContent="center"
-				padding="2"
-				onPress={handleCreatePress}
-				marginTop="4"
+		<>
+			<Box safeAreaTop bg="secondary.600" />
+
+			<Box
+				display="flex"
+				flex={1}
+				padding="5"
+				backgroundColor="primary.900"
 			>
-				<Text
+				<Input
+					value={workoutName}
+					onChangeText={setWorkoutName}
+					autoFocus={true}
+					editable={true}
+					autoComplete="off"
+					autoCapitalize="none"
+					autoCorrect={false}
+					placeholder="Workout Name"
+					borderColor="secondary.900"
+					borderWidth="2"
+					variant="filled"
 					color="general.900"
-					fontWeight="bold"
+					_focus={{color: 'general.900'}}
+				/>
+				<Pressable
+					borderColor="secondary.900"
+					borderWidth="2"
+					borderRadius="10"
+					alignItems="center"
+					justifyContent="center"
+					padding="2"
+					onPress={handleCreatePress}
+					marginTop="4"
 				>
+					<Text
+						color="general.900"
+						fontWeight="bold"
+					>
           Create Workout
-				</Text>
-			</Pressable>
-		</Box>
+					</Text>
+				</Pressable>
+			</Box>
+		</>
 	)
 }

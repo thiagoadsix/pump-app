@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
+import { Box, FlatList, HStack, Pressable, Text } from 'native-base'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Box, FlatList } from 'native-base'
+import { Ionicons } from '@expo/vector-icons'
 
 import { fetchSingle } from '../api/axios'
 import { RootStackParamList } from '../../navigation'
@@ -28,34 +29,46 @@ export function BodyPartScreen({ navigation }: NativeStackScreenProps<RootStackP
 	]
 
 	return (
-		<Box
-			display="flex"
-			flex="1"
-			backgroundColor="primary.900"
-			padding="5"
-		>
+		<>
+			<Box safeAreaTop bg="secondary.600" />
+
+			<HStack bg="secondary.600" w="100%" p="5">
+				<Pressable onPress={() => navigation.goBack()} flexDirection="row" alignItems="center" >
+					<Ionicons name='chevron-back' size={24} color="white"/>
+					<Text fontSize={16} fontWeight="bold" color="general.900">Go back</Text>
+				</Pressable>
+			</HStack>
+
 			<Box
-				alignItems="center"
-				justifyContent="center"
+				display="flex"
+				flex="1"
+				backgroundColor="primary.900"
+				padding="5"
 			>
-				<WhichTypeListComponent
-					data={bodyParts}
-					selected={selected}
-					setSelected={setSelected}
-					horizontal
+				<Box
+					alignItems="center"
+					justifyContent="center"
+				>
+					<WhichTypeListComponent
+						data={bodyParts}
+						selected={selected}
+						setSelected={setSelected}
+						horizontal
+					/>
+				</Box>
+				<FlatList
+					showsVerticalScrollIndicator={false}
+					data={exercises}
+					keyExtractor={item => item.id}
+					renderItem={({ item }) => (
+						<ExerciseComponent key={item.id} exercise={item} handlePress={handlePress} />
+					)}
+					marginTop="5"
+					width="100%"
+					maxWidth={400}
 				/>
 			</Box>
-			<FlatList
-				showsVerticalScrollIndicator={false}
-				data={exercises}
-				keyExtractor={item => item.id}
-				renderItem={({ item }) => (
-					<ExerciseComponent key={item.id} exercise={item} handlePress={handlePress} />
-				)}
-				marginTop="5"
-				width="100%"
-				maxWidth={400}
-			/>
-		</Box>
+		</>
+
 	)
 }
