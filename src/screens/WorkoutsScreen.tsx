@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Box, FlatList, HStack, Pressable, Text } from 'native-base'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackParamList, WorkoutSetExercise } from '../../navigation'
 import { fetchSingle } from '../api/axios'
 import { Ionicons } from '@expo/vector-icons'
+import { HomeScreenParamList, WorkoutSetExercise } from '../routes/app.routes'
 
-export function WorkoutsScreen({ navigation }: NativeStackScreenProps<RootStackParamList, 'WorkoutsScreen'>) {
+export function WorkoutsScreen({ navigation }: NativeStackScreenProps<HomeScreenParamList, 'WorkoutsScreen'>) {
 	const userIdMocked = '4cb4866b-a240-419a-b4f2-3d762d29eb17'
 
 	const [workouts, setWorkouts] = useState<Array<WorkoutSetExercise>>([])

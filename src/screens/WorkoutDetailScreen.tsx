@@ -10,8 +10,6 @@ import { HomeScreenParamList } from '../routes/app.routes'
 export function WorkoutDetailScreen({ navigation, route }: NativeStackScreenProps<HomeScreenParamList, 'WorkoutDetailScreen'>) {
 	const params = route.params
 
-	console.log({params})
-
 	const handleExercisePress = (exercise: Exercise) => {
 		navigation.navigate('ExerciseDetailScreen', { exercise })
 	}
@@ -36,20 +34,36 @@ export function WorkoutDetailScreen({ navigation, route }: NativeStackScreenProp
 					backgroundColor='primary.600'
 					borderRadius="5"
 					padding="5"
+					flexDirection="row"
+					justifyContent="space-between"
 				>
-					<Text
-						color="general.900"
-						fontWeight='bold'
-						fontSize="18"
-						marginBottom="2"
-					>
-						{params?.workout.name}
-					</Text>
-					<Text
-						color="general.900"
-					>
+					<Box>
+						<Text
+							color="general.900"
+							fontWeight='bold'
+							fontSize="18"
+						>
+							{params?.workout.name}
+						</Text>
+						<Text
+							color="general.900"
+						>
           Exercises: {params?.workout.sets.length}
-					</Text>
+						</Text>
+					</Box>
+					<Pressable
+						onPress={() => navigation.navigate('BodyPartScreen')}
+						flexDirection="row"
+						alignItems="center"
+						borderWidth="2"
+						borderColor="secondary.900"
+						borderRadius="10"
+						padding="2"
+						backgroundColor="secondary.600"
+					>
+						<Ionicons name='add' size={20} color="white"/>
+						<Text fontSize={12} fontWeight="bold" color="general.900">Add exercise</Text>
+					</Pressable>
 				</Box>
 				<Box
 					flex="1"

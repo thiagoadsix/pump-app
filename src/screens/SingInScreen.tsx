@@ -3,12 +3,11 @@ import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Box, Input, Button, VStack, Icon, Center, Heading, FormControl, Pressable, KeyboardAvoidingView, useToast, HStack, Text, Link } from 'native-base'
-import { RootStackParamList } from '../../navigation'
 import { useAuth } from '../hooks/useAuth'
 import { AppError } from '../utils/AppError'
+import { AuthStackParamList } from '../routes/auth.routes'
 
-
-type Props = NativeStackScreenProps<RootStackParamList, 'SignInScreen'>;
+type Props = NativeStackScreenProps<AuthStackParamList, 'SignInScreen'>;
 
 export function SignInScreen({ navigation }: Props) {
 	const [isLoading, setIsLoading] = useState(false)
@@ -51,10 +50,7 @@ export function SignInScreen({ navigation }: Props) {
 			<Center flex="1" w="100%" backgroundColor="#212121">
 				<Box safeArea p="2" w="90%" maxW="290" py="8">
 					<Heading size="3xl" color="general.900" fontWeight="semibold">
-						PUMP
-					</Heading>
-					<Heading mt="1" color="general.900" fontWeight="medium" size="xs">
-						Sign in to continue!
+						Sign In
 					</Heading>
 					<KeyboardAvoidingView
 						behavior="position"

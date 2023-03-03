@@ -3,10 +3,9 @@ import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Box, Input, Button, VStack, Icon, Center, Heading, FormControl, Pressable, KeyboardAvoidingView, HStack, Text, Link } from 'native-base'
-import { RootStackParamList } from '../../navigation'
+import { AuthStackParamList } from '../routes/auth.routes'
 
-
-type Props = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
+type Props = NativeStackScreenProps<AuthStackParamList, 'SignUpScreen'>;
 
 export function SignUpScreen({ navigation }: Props) {
 	const [email, setEmail] = useState('')
@@ -36,10 +35,7 @@ export function SignUpScreen({ navigation }: Props) {
 			<Center flex="1" w="100%" backgroundColor="#212121">
 				<Box safeArea p="2" w="90%" maxW="290" py="8">
 					<Heading size="3xl" color="general.900" fontWeight="semibold">
-						Welcome
-					</Heading>
-					<Heading mt="1" color="general.900" fontWeight="medium" size="xs">
-						Sign up to continue!
+						Sign Up
 					</Heading>
 					<KeyboardAvoidingView
 						behavior="position"
