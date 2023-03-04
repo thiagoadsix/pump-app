@@ -1,5 +1,3 @@
-import { useContext } from 'react'
-
 import { useTheme, Box } from 'native-base'
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 

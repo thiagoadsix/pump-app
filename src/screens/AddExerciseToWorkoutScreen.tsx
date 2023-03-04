@@ -8,28 +8,29 @@ import { Controller, useForm } from 'react-hook-form'
 import { fetchPost, fetchSingle } from '../api/axios'
 import { Workout } from '../entities'
 import { HomeScreenParamList } from '../routes/app.routes'
+import { useAuth } from '../hooks/useAuth'
 
 export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScreenProps<HomeScreenParamList, 'AddExerciseToWorkoutScreen'>) {
-	const userIdMocked = '4cb4866b-a240-419a-b4f2-3d762d29eb17'
 	const { exercise } = route.params
 
 	const [workouts, setWorkouts] = useState<Workout[]>([])
 	const [showWorkouts, setShowWorkouts] = useState<boolean>(false)
 	const [showModal, setShowModal] = useState<boolean>(false)
+	const { user } = useAuth()
 
 	const { control, handleSubmit, formState: { errors }, getValues } = useForm()
 
 	const { repetitions, series, weight, workoutId } = getValues()
 
 	useEffect(() => {
-		fetchSingle(`/local/workouts/user/${userIdMocked}`, 'get')
+		fetchSingle(`/local/workouts/user/${user.id}`, 'get')
 			.then(result => {
 				setWorkouts(result)
 			})
 	}, [])
 
 	const handleAddExerciseToWorkoutList = async () => {
-		await fetchPost(`local/workouts/${workoutId}/user/${userIdMocked}/exercise`, 'post', { sets: [{ id: exercise.id, repetitions, series, weight: exercise.equipment !== 'body weight' ? weight : 0 }] })
+		await fetchPost(`local/workouts/${workoutId}/user/${user.id}/exercise`, 'post', { sets: [{ id: exercise.id, repetitions, series, weight: exercise.equipment !== 'body weight' ? weight : 0 }] })
 		setShowModal(false)
 		navigation.navigate('BodyPartScreen')
 	}
@@ -48,9 +49,9 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 
 	return (
 		<>
-			<Box safeAreaTop bg="secondary.600" />
+			<Box safeAreaTop bg="secondary.600" zIndex={9999} />
 
-			<HStack bg="secondary.600" w="100%" p="5">
+			<HStack bg="secondary.600" w="100%" p="5" zIndex={9999}>
 				<Pressable onPress={() => navigation.goBack()} flexDirection="row" alignItems="center" >
 					<Ionicons name='chevron-back' size={24} color="white" />
 					<Text fontSize={16} fontWeight="bold" color="general.900">Go back</Text>

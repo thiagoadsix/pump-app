@@ -2,29 +2,45 @@ import React, { useState } from 'react'
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { MaterialIcons } from '@expo/vector-icons'
-import { Box, Input, Button, VStack, Icon, Center, Heading, FormControl, Pressable, KeyboardAvoidingView, HStack, Text, Link } from 'native-base'
+import { Box, Input, Button, VStack, Icon, Center, Heading, FormControl, Pressable, KeyboardAvoidingView, HStack, Text, Link, useToast } from 'native-base'
 import { AuthStackParamList } from '../routes/auth.routes'
+import { useAuth } from '../hooks/useAuth'
+import { AppError } from '../utils/AppError'
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'SignUpScreen'>;
 
 export function SignUpScreen({ navigation }: Props) {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [showPassword, setShowPassword] = useState(false)
+	const [name, setName] = useState('')
+	const [showPassword, setShowPassword] = useState(true)
+	const { signUp } = useAuth()
+	const toast = useToast()
 	const [isLoading, setIsLoading] = useState(false)
 
 	const handleSignUp = async () => {
-		setIsLoading(true)
-		// your sign up logic here, e.g. Firebase.auth().createUserWithEmailAndPassword(email, password)
-		setTimeout(() => {
+		try {
+			setIsLoading(true)
+			signUp(name, email, password)
+		} catch (error) {
+			const isAppError = error instanceof AppError
+			const title = isAppError ? error.message : 'Try again later.'
+
 			setIsLoading(false)
-			// navigate to HomeScreen here, e.g. navigation.navigate('Home')
-		}, 2500)
+
+			toast.show({
+				title,
+				placement: 'bottom',
+				bgColor: 'red.500'
+			})
+		}
 	}
 
 	const handleSignIn = () => {
 		navigation.navigate('SignInScreen')
 	}
+
+	const handleChangeName = (name: string) => setName(name)
 
 	const handleChangeEmail = (email: string) => setEmail(email)
 
@@ -42,6 +58,19 @@ export function SignUpScreen({ navigation }: Props) {
 						backgroundColor='primary.900'
 					>
 						<VStack space={3} mt="5">
+							<FormControl>
+								<FormControl.Label>Name</FormControl.Label>
+								<Input
+									value={name}
+									onChangeText={handleChangeName}
+									autoCorrect={false}
+									autoCapitalize="none"
+									autoComplete="name"
+									color="general.900"
+									borderColor="secondary.600"
+									_focus={{ borderColor: 'secondary.900' }}
+								/>
+							</FormControl>
 							<FormControl>
 								<FormControl.Label>Email</FormControl.Label>
 								<Input
@@ -77,6 +106,7 @@ export function SignUpScreen({ navigation }: Props) {
 								onPress={handleSignUp}
 								mt="2"
 								backgroundColor="secondary.600"
+								isLoading={isLoading}
 							>
 								Sign up
 							</Button>

@@ -12,8 +12,9 @@ import { WorkoutDetailScreen } from '../screens/WorkoutDetailScreen'
 import { CreateWorkoutScreen } from '../screens/CreateWorkoutScreen'
 import { AddExerciseToWorkoutScreen } from '../screens/AddExerciseToWorkoutScreen'
 import { ExerciseDetailScreen } from '../screens/ExerciseDetailScreen'
+import { WorkoutExerciseDetailScreen } from '../screens/WorkoutExerciseDetailScreen'
 
-interface SetExercise extends Set {
+export interface SetExercise extends Set {
 	exercise: Exercise
 }
 
@@ -34,8 +35,11 @@ export type HomeScreenParamList = {
 		exercise: Exercise
 	}
 	WorkoutsScreen: undefined;
-
 	CreateWorkoutScreen: undefined
+	WorkoutExerciseDetailScreen: {
+		set: SetExercise
+		exercise: Exercise
+	}
 };
 
 export type WorkoutsScreenParamList = {
@@ -79,6 +83,10 @@ const HomeStackScreen = () => (
 		<HomeStack.Screen
 			name="WorkoutsScreen"
 			component={WorkoutsScreen}
+		/>
+		<HomeStack.Screen
+			name="WorkoutExerciseDetailScreen"
+			component={WorkoutExerciseDetailScreen}
 		/>
 	</HomeStack.Navigator>
 )

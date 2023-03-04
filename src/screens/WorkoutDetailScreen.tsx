@@ -5,13 +5,13 @@ import { Box, FlatList, HStack, Pressable, Text } from 'native-base'
 import { SetComponent } from '../components/SetComponent'
 
 import { Exercise } from '../entities'
-import { HomeScreenParamList } from '../routes/app.routes'
+import { HomeScreenParamList, SetExercise } from '../routes/app.routes'
 
 export function WorkoutDetailScreen({ navigation, route }: NativeStackScreenProps<HomeScreenParamList, 'WorkoutDetailScreen'>) {
 	const params = route.params
 
-	const handleExercisePress = (exercise: Exercise) => {
-		navigation.navigate('ExerciseDetailScreen', { exercise })
+	const handleExercisePress = (set: SetExercise, exercise: Exercise) => {
+		navigation.navigate('WorkoutExerciseDetailScreen', { set, exercise })
 	}
 
 	return (
@@ -76,7 +76,7 @@ export function WorkoutDetailScreen({ navigation, route }: NativeStackScreenProp
 						marginTop="5"
 						data={params?.workout.sets}
 						renderItem={({ item }) => (
-							<SetComponent key={item.id}  set={item} handlePress={handleExercisePress} />
+							<SetComponent key={item.id}  set={item} handlePress={() => handleExercisePress(item, item.exercise)} />
 						)}
 					/>
 				</Box>

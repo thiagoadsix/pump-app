@@ -1,15 +1,10 @@
-import { Box, Image, Text, Pressable, HStack } from 'native-base'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Ionicons } from '@expo/vector-icons'
-
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Box, HStack, Image, Pressable, Text } from 'native-base'
 import { HomeScreenParamList } from '../routes/app.routes'
 
-export function ExerciseDetailScreen({ navigation, route }: NativeStackScreenProps<HomeScreenParamList, 'ExerciseDetailScreen'>) {
+export function WorkoutExerciseDetailScreen ({ navigation, route }: NativeStackScreenProps<HomeScreenParamList, 'WorkoutExerciseDetailScreen'>) {
 	const params = route.params
-
-	const handleOpenModal = () => {
-		navigation.navigate('AddExerciseToWorkoutScreen', params)
-	}
 
 	return (
 		<>
@@ -21,8 +16,6 @@ export function ExerciseDetailScreen({ navigation, route }: NativeStackScreenPro
 					<Text fontSize={16} fontWeight="bold" color="general.900">Go back</Text>
 				</Pressable>
 			</HStack>
-
-		
 			<Box
 				flex="1"
 				backgroundColor="primary.900"
@@ -52,35 +45,17 @@ export function ExerciseDetailScreen({ navigation, route }: NativeStackScreenPro
 						fontSize="18"
 						color='general.900'
 						marginBottom="2"
-					>Equipment: {params.exercise.equipment}</Text>
+					>Repetitions: {params.set.repetitions}</Text>
 					<Text
 						fontSize="18"
 						color='general.900'
 						marginBottom="2"
-					>Target: {params.exercise.target}</Text>
+					>Series: {params.set.series}</Text>
 					<Text
 						fontSize="18"
 						color='general.900'
-					>Body part: {params.exercise.bodyPart}</Text>
+					>Weight: {params.set.weight}kg</Text>
 				</Box>
-				<Pressable
-					onPress={handleOpenModal}
-					backgroundColor='primary.700'
-					padding="4"
-					marginTop="5"
-					borderRadius="8"
-					width='100%'
-					alignItems='center'
-					justifyContent='center'
-					borderWidth="2"
-					borderColor="secondary.900"
-				>
-					<Text
-						color='white'
-						fontWeight='bold'
-						fontSize="16"
-					>Add to workout list</Text>
-				</Pressable>
 			</Box>
 		</>
 	)

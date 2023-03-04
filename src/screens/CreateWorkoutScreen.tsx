@@ -6,14 +6,14 @@ import { Box, HStack, Input, Pressable, Text } from 'native-base'
 import { fetchPost } from '../api/axios'
 import { Ionicons } from '@expo/vector-icons'
 import { HomeScreenParamList } from '../routes/app.routes'
+import { useAuth } from '../hooks/useAuth'
 
 export function CreateWorkoutScreen({ navigation }: NativeStackScreenProps<HomeScreenParamList, 'CreateWorkoutScreen'>) {
-	const userIdMocked = '4cb4866b-a240-419a-b4f2-3d762d29eb17'
-
 	const [workoutName, setWorkoutName] = useState<string>('')
+	const { user } = useAuth()
 
 	const handleCreatePress = () => {
-		fetchPost('local/workouts', 'post', { name: workoutName, userId: userIdMocked }).then(() => {
+		fetchPost('local/workouts', 'post', { name: workoutName, userId: user.id }).then(() => {
 			navigation.navigate('WorkoutsScreen')
 		})
 	}
