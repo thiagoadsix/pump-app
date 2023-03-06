@@ -5,7 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Controller, useForm } from 'react-hook-form'
 
-import { fetchPost, fetchSingle } from '../api/axios'
+import { api } from '../api/axios'
 import { Workout } from '../entities'
 import { HomeScreenParamList } from '../routes/app.routes'
 import { useAuth } from '../hooks/useAuth'
@@ -23,14 +23,14 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 	const { repetitions, series, weight, workoutId } = getValues()
 
 	useEffect(() => {
-		fetchSingle(`/local/workouts/user/${user.id}`, 'get')
+		api.get(`/local/workouts/user/${user.id}`)
 			.then(result => {
-				setWorkouts(result)
-			})
-	}, [])
+				setWorkouts(result.data)
+			}).catch(error => {throw error})
+	}, [user.id])
 
 	const handleAddExerciseToWorkoutList = async () => {
-		await fetchPost(`local/workouts/${workoutId}/user/${user.id}/exercise`, 'post', { sets: [{ id: exercise.id, repetitions, series, weight: exercise.equipment !== 'body weight' ? weight : 0 }] })
+		await api.post(`local/workouts/${workoutId}/user/${user.id}/exercise`, { sets: [{ id: exercise.id, repetitions, series, weight: exercise.equipment !== 'body weight' ? weight : 0 }] })
 		setShowModal(false)
 		navigation.navigate('BodyPartScreen')
 	}
@@ -86,7 +86,7 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 					{
 						!showWorkouts && (
 							<Box>
-								<FormControl isRequired isInvalid={'repetitions' in errors} marginBottom="4">
+								<FormControl isRequired isInvalid={'repetitions' in errors} marginBottom="2">
 									<FormControl.Label>
 										<Text bold color="general.900" fontSize="16">Repetitions</Text>
 									</FormControl.Label>
@@ -113,7 +113,7 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 									</FormControl.ErrorMessage>
 								</FormControl>
 
-								<FormControl isRequired isInvalid={'series' in errors} marginBottom="4">
+								<FormControl isRequired isInvalid={'series' in errors} marginBottom="2">
 									<FormControl.Label>
 										<Text bold color="general.900" fontSize="16">Series</Text>
 									</FormControl.Label>
@@ -141,7 +141,7 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 								</FormControl>
 								{
 									exercise.equipment !== 'body weight' && (
-										<FormControl isRequired isInvalid={'weight' in errors} marginBottom="4">
+										<FormControl isRequired isInvalid={'weight' in errors} marginBottom="2">
 											<FormControl.Label>
 												<Text bold color="general.900" fontSize="16">Weight</Text>
 											</FormControl.Label>
@@ -177,6 +177,7 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 						showWorkouts && (
 							<FormControl isRequired isInvalid={'workoutId' in errors}>
 								<FormControl.Label>Workouts</FormControl.Label>
+								
 								<Controller
 									control={control}
 									render={({ field: { onChange } }) => (
@@ -244,7 +245,7 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 					}
 
 					{
-						showWorkouts && (
+						!showWorkouts ? null : (
 							<Stack>
 								<Pressable
 									onPress={handleSubmit(handleShowModalToAddExerciseToWorkoutList)}
@@ -261,7 +262,7 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 									<Text
 										color='white'
 										fontWeight='bold'
-										fontSize="16">{workoutId ? `Add to ${workouts.filter(workout => workout.id === workoutId).shift()?.name}` : 'Add'}</Text>
+										fontSize="16">Add</Text>
 								</Pressable>
 								<Pressable
 									onPress={handleGoBackToForm}

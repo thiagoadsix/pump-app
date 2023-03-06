@@ -27,6 +27,7 @@ import {
 import { theme } from './theme'
 import { AuthContextProvider } from './src/contexts/AuthContext'
 import { Routes } from './src/routes'
+import { WorkoutContextProvider } from './src/contexts/WorkoutContext'
 
 export default function App() {
 	const [fonts] = useFonts({
@@ -62,7 +63,9 @@ export default function App() {
 				translucent
 			/>
 			<AuthContextProvider>
-				<Routes />
+				<WorkoutContextProvider>
+					<Routes />
+				</WorkoutContextProvider>
 			</AuthContextProvider>
 		</NativeBaseProvider>
 	)

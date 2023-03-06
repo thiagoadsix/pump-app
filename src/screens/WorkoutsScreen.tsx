@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Box, FlatList, HStack, Pressable, Text } from 'native-base'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { fetchSingle } from '../api/axios'
 import { Ionicons } from '@expo/vector-icons'
 import { HomeScreenParamList, WorkoutSetExercise } from '../routes/app.routes'
 import { useAuth } from '../hooks/useAuth'
+import { useWorkout } from '../hooks/useWorkout'
 
 export function WorkoutsScreen({ navigation }: NativeStackScreenProps<HomeScreenParamList, 'WorkoutsScreen'>) {
-	const [workouts, setWorkouts] = useState<Array<WorkoutSetExercise>>([])
+	const { workouts, setWorkouts } = useWorkout()
 	const { user } = useAuth()
 
 	useEffect(() => {

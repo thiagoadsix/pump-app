@@ -2,7 +2,7 @@ import { createContext, ReactNode, useState } from 'react'
 import { api } from '../api/axios'
 import { UserDTO } from '../dto/UserDTO'
 
-export type AuthContextDataProps = {
+export type AuthContextType = {
 	user: UserDTO
 	signIn: (email: string, password: string) => Promise<void>
 	signUp: (name: string, email: string, password: string) => Promise<void>
@@ -12,7 +12,7 @@ type AuthContextProviderProps = {
 	children: ReactNode
 }
 
-export const AuthContext = createContext<AuthContextDataProps>({} as AuthContextDataProps)
+export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
 	const [user, setUser] = useState<UserDTO>({} as UserDTO)

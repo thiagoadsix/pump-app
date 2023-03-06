@@ -48,7 +48,7 @@ export type WorkoutsScreenParamList = {
 };
 
 const HomeStack = createStackNavigator<HomeScreenParamList>()
-const WorkoutsStack = createStackNavigator<WorkoutsScreenParamList>()
+// const WorkoutsStack = createStackNavigator<WorkoutsScreenParamList>()
 const Tab = createBottomTabNavigator()
 
 const HomeStackScreen = () => (
@@ -91,17 +91,17 @@ const HomeStackScreen = () => (
 	</HomeStack.Navigator>
 )
 
-const WorkoutsStackScreen = () => (
-	<WorkoutsStack.Navigator
-		screenOptions={{ headerShown: false }}
-		initialRouteName="WorkoutsScreen"
-	>
-		<WorkoutsStack.Screen
-			name="WorkoutsScreen"
-			component={WorkoutsScreen}
-		/>
-	</WorkoutsStack.Navigator>
-)
+// const WorkoutsStackScreen = () => (
+// 	<WorkoutsStack.Navigator
+// 		screenOptions={{ headerShown: false }}
+// 		initialRouteName="WorkoutsScreen"
+// 	>
+// 		<WorkoutsStack.Screen
+// 			name="WorkoutsScreen"
+// 			component={WorkoutsScreen}
+// 		/>
+// 	</WorkoutsStack.Navigator>
+// )
 
 export const AppRoutes: React.FC = () => {
 	return (
@@ -137,11 +137,11 @@ export const AppRoutes: React.FC = () => {
 				component={HomeStackScreen}
 				options={{ tabBarLabel: 'Home' }}
 			/>
-			<Tab.Screen
+			{/* <Tab.Screen
 				name='Workouts'
 				component={WorkoutsStackScreen}
 				options={{ tabBarLabel: 'Workouts' }}
-			/>
+			/> */}
 		</Tab.Navigator>
 	)
 }

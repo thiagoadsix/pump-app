@@ -3,22 +3,23 @@ import { Box, FlatList, HStack, Pressable, Text } from 'native-base'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Ionicons } from '@expo/vector-icons'
 
-import { fetchSingle } from '../api/axios'
-import { RootStackParamList } from '../../navigation'
+import { api } from '../api/axios'
+import { HomeScreenParamList } from '../routes/app.routes'
 
 import { ExerciseComponent } from '../components/ExerciseComponent'
 import { WhichTypeListComponent } from '../components/WhichTypeListComponent'
 import { Exercise } from '../entities'
 
-export function BodyPartScreen({ navigation }: NativeStackScreenProps<RootStackParamList, 'BodyPartScreen'>) {
+export function BodyPartScreen({ navigation }: NativeStackScreenProps<HomeScreenParamList, 'BodyPartScreen'>) {
 	const [selected, setSelected] = useState<string>('back')
 	const [exercises, setExercises] = useState<Array<Exercise>>([])
 
 	useEffect(() => {
-		fetchSingle(`local/exercises/body-part/${selected}`, 'get')
+		api.get(`local/exercises/body-part/${selected}`)
 			.then(result => {
-				setExercises(result)
+				setExercises(result.data)
 			})
+		api
 	}, [selected])
 
 	const handlePress = (exercise: Exercise) => {

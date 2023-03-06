@@ -21,9 +21,11 @@ export function SignUpScreen({ navigation }: Props) {
 	const handleSignUp = async () => {
 		try {
 			setIsLoading(true)
-			signUp(name, email, password)
+			await signUp(name, email, password)
 		} catch (error) {
+			// console.log({ isAppError: error })
 			const isAppError = error instanceof AppError
+			// console.log({ isAppError })
 			const title = isAppError ? error.message : 'Try again later.'
 
 			setIsLoading(false)

@@ -2,20 +2,22 @@ import { useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Box, HStack, Input, Pressable, Text } from 'native-base'
 
-
-import { fetchPost } from '../api/axios'
+import { api } from '../api/axios'
 import { Ionicons } from '@expo/vector-icons'
 import { HomeScreenParamList } from '../routes/app.routes'
 import { useAuth } from '../hooks/useAuth'
+import { useWorkout } from '../hooks/useWorkout'
 
 export function CreateWorkoutScreen({ navigation }: NativeStackScreenProps<HomeScreenParamList, 'CreateWorkoutScreen'>) {
 	const [workoutName, setWorkoutName] = useState<string>('')
 	const { user } = useAuth()
+	const { setWorkouts } = useWorkout()
 
-	const handleCreatePress = () => {
-		fetchPost('local/workouts', 'post', { name: workoutName, userId: user.id }).then(() => {
-			navigation.navigate('WorkoutsScreen')
-		})
+	const handleCreatePress = async () => {
+		await api.post('local/workouts', { name: workoutName, userId: user.id })
+		const workouts = await api.get(`local/workouts/user/${user.id}`)
+		setWorkouts(workouts.data)
+		navigation.navigate('WorkoutsScreen')
 	}
 
 	return (

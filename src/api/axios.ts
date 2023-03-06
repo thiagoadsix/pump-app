@@ -7,6 +7,7 @@ const api = axios.create({
 })
 
 api.interceptors.response.use(resp => resp, error => {
+	console.log(JSON.stringify(error))
 	if (error.response && error.response.data) {
 		return Promise.reject(new AppError(error.response.data.message))
 	} else {

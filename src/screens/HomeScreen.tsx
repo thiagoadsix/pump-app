@@ -1,13 +1,13 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Box, Text as TextNative } from 'native-base'
-import { RootStackParamList } from '../../navigation'
+import { HomeScreenParamList } from '../routes/app.routes'
 import { HeaderComponent } from '../components/HeaderComponent'
 import { NavigationCardComponent } from '../components/NavigationCardComponent'
 import { useAuth } from '../hooks/useAuth'
 
 type WhichScreen = 'BodyPartScreen' | 'WorkoutsScreen'
 
-export function HomeScreen({ navigation }: NativeStackScreenProps<RootStackParamList, 'HomeScreen'>) {
+export function HomeScreen({ navigation }: NativeStackScreenProps<HomeScreenParamList, 'HomeScreen'>) {
 	const { user } = useAuth()
 	
 	const onButtonPress = (title: WhichScreen) => {
