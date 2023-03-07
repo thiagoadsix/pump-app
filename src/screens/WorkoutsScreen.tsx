@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Box, FlatList, HStack, Pressable, Text } from 'native-base'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { fetchSingle } from '../api/axios'
+import { api } from '../api/axios'
 import { Ionicons } from '@expo/vector-icons'
 import { HomeScreenParamList, WorkoutSetExercise } from '../routes/app.routes'
 import { useAuth } from '../hooks/useAuth'
@@ -12,9 +12,9 @@ export function WorkoutsScreen({ navigation }: NativeStackScreenProps<HomeScreen
 	const { user } = useAuth()
 
 	useEffect(() => {
-		fetchSingle(`local/workouts/user/${user.id}`, 'get')
+		api.get(`local/workouts/user/${user.id}`)
 			.then(result => {
-				setWorkouts(result)
+				setWorkouts(result.data)
 			})
 	}, [])
 
@@ -23,7 +23,7 @@ export function WorkoutsScreen({ navigation }: NativeStackScreenProps<HomeScreen
 	}
 
 	const handleRemovePress = (workoutId: string) => {
-		fetchSingle(`/local/workouts/${workoutId}/user/${user.id}`, 'delete')
+		api.delete(`/local/workouts/${workoutId}/user/${user.id}`)
 			.then(() => setWorkouts(workouts.filter(workout => workout.id !== workoutId)))
 	}
 
