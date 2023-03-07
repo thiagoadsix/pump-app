@@ -2,7 +2,7 @@ if (__DEV__) {
 	import('./src/config/reactotron-config').then(() => console.log('Reactotron Configured'))
 }
 
-import { NativeBaseProvider } from 'native-base'
+import { NativeBaseProvider, StatusBar } from 'native-base'
 import {
 	Poppins_100Thin,
 	Poppins_100Thin_Italic,
@@ -24,8 +24,10 @@ import {
 	Poppins_900Black_Italic,
 	useFonts
 } from '@expo-google-fonts/poppins'
-import { Navigation } from './navigation'
 import { theme } from './theme'
+import { AuthContextProvider } from './src/contexts/AuthContext'
+import { Routes } from './src/routes'
+import { WorkoutContextProvider } from './src/contexts/WorkoutContext'
 
 export default function App() {
 	const [fonts] = useFonts({
@@ -55,7 +57,16 @@ export default function App() {
 
 	return (
 		<NativeBaseProvider theme={theme}>
-			<Navigation />
+			<StatusBar 
+				barStyle="light-content"
+				backgroundColor="transparent"
+				translucent
+			/>
+			<AuthContextProvider>
+				<WorkoutContextProvider>
+					<Routes />
+				</WorkoutContextProvider>
+			</AuthContextProvider>
 		</NativeBaseProvider>
 	)
 }

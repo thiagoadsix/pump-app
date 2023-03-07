@@ -1,35 +1,35 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios from 'axios'
 
+import { AppError } from '../utils/AppError'
+
+// to android -> http://10.0.2.2:3000
+// to ios -> http://localhost:3000
 const api = axios.create({
-	baseURL: 'http://localhost:3000'
+	baseURL: 'http://10.0.2.2:3000',
+	headers: {
+		'Accept': 'application/json',
+		'Content-Type': 'application/json; charset=utf-8'
+	}
 })
 
-type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch';
+api.interceptors.request.use(
+	(resp) => {
+		console.log({ resp })
+		return resp
+	},
+	(err) => console.log({ err })
+)
 
-export const fetchData = async (urls: string[], method: HttpMethod, config?: AxiosRequestConfig) => {
-	try {
-		const requests = urls.map(async (url) => await api[method](url, config))
-		const responses = await Promise.all(requests)
-		return responses.map(({ data }) => data)
-	} catch (error) {
-		throw new Error(JSON.stringify(error))
+api.interceptors.response.use(
+	(resp) => resp,
+	(error) => {
+		console.log(JSON.stringify(error))
+		if (error.response && error.response.data) {
+			return Promise.reject(new AppError(error.response.data.message))
+		} else {
+			return Promise.reject(error)
+		}
 	}
-}
+)
 
-export const fetchSingle = async (url: string, method: HttpMethod, config?: AxiosRequestConfig) => {
-	try {
-		const { data: response } = await api[method](url, config)
-		return response
-	} catch (error) {
-		throw new Error(JSON.stringify(error))
-	}
-}
-
-export const fetchPost = async (url: string, method: HttpMethod, data: any) => {
-	try {
-		const { data: response } = await api[method](url, data)
-		return response
-	} catch (error) {
-		throw new Error(JSON.stringify(error))
-	}
-}
+export { api }
