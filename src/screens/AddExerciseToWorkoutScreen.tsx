@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { TouchableWithoutFeedback, Keyboard } from 'react-native'
-import { KeyboardAvoidingView, Image, Text, Input, Pressable, FlatList, Radio, FormControl, Stack, Icon, Modal, Button, Box, HStack } from 'native-base'
+import { ScrollView, KeyboardAvoidingView, Image, Text, Input, Pressable, FlatList, Radio, FormControl, Stack, Icon, Modal, Button, Box, HStack, View } from 'native-base'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Controller, useForm } from 'react-hook-form'
@@ -60,7 +60,7 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 
 			<TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
 				<KeyboardAvoidingView
-					behavior="position"
+					behavior="height"
 					flex="1"
 					backgroundColor='primary.900'
 					padding="5"
@@ -83,9 +83,95 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 						color='general.900'
 						marginY="2"
 					>{exercise.name}</Text>
-					{
-						!showWorkouts && (
-							<Box>
+
+					{showWorkouts ? (
+						<>
+							<FormControl isRequired isInvalid={'workoutId' in errors}>
+								<FormControl.Label>Workouts</FormControl.Label>
+						
+								<Controller
+									control={control}
+									render={({ field: { onChange } }) => (
+										<FlatList
+											height="20%"
+											data={workouts}
+											showsVerticalScrollIndicator={true}
+											scrollEnabled={true}
+											indicatorStyle='white'
+											renderItem={({ item }) => {
+												return (
+													<>
+														<Radio.Group
+															name="workoutId"
+															onChange={(val) => onChange(val)}>
+															<Radio
+																value={item.id}
+																marginY={2}
+																size="sm"
+																_checked={{
+																	backgroundColor: 'secondary.900'
+																}}
+															>
+																<Text color="general.900" fontSize="18">
+																	{item.name}
+																</Text>
+															</Radio>
+														</Radio.Group>
+														<FormControl.ErrorMessage>
+															{errors.workoutId?.message}
+														</FormControl.ErrorMessage>
+													</>
+												)
+											}}
+										/>
+									)}
+									name="workoutId"
+									rules={{ required: 'Workout is required' }}
+								/>
+							</FormControl>
+
+							<Stack>
+								<Pressable
+									onPress={handleSubmit(handleShowModalToAddExerciseToWorkoutList)}
+									backgroundColor='primary.700'
+									padding="4"
+									marginTop="5"
+									borderRadius="8"
+									width='100%'
+									alignItems='center'
+									justifyContent='center'
+									borderWidth="2"
+									borderColor="secondary.900"
+								>
+									<Text
+										color='white'
+										fontWeight='bold'
+										fontSize="16">Add</Text>
+								</Pressable>
+								<Pressable
+									onPress={handleGoBackToForm}
+									backgroundColor='primary.700'
+									padding="4"
+									marginTop="5"
+									borderRadius="8"
+									width='100%'
+									alignItems='center'
+									justifyContent='center'
+									borderWidth="2"
+									borderColor="secondary.900"
+									flexDirection="row"
+								>
+									<Icon as={FontAwesome} name="chevron-left" marginRight="2" />
+									<Text
+										color='white'
+										fontWeight='bold'
+										fontSize="16">Go back to form</Text>
+								</Pressable>
+							</Stack>
+						</>
+					) : (
+						<View flex="1">
+							<ScrollView>
 								<FormControl isRequired isInvalid={'repetitions' in errors} marginBottom="2">
 									<FormControl.Label>
 										<Text bold color="general.900" fontSize="16">Repetitions</Text>
@@ -139,91 +225,34 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 										{errors.series?.message}
 									</FormControl.ErrorMessage>
 								</FormControl>
-								{
-									exercise.equipment !== 'body weight' && (
-										<FormControl isRequired isInvalid={'weight' in errors} marginBottom="2">
-											<FormControl.Label>
-												<Text bold color="general.900" fontSize="16">Weight</Text>
-											</FormControl.Label>
-											<Controller
-												control={control}
-												render={({ field: { onChange, onBlur, value } }) => (
-													<Input
-														onBlur={onBlur}
-														color="general.900"
-														borderWidth="2"
-														borderColor='secondary.600'
-														_focus={{ borderColor: 'secondary.900' }}
-														placeholder="Ex.: 40"
-														keyboardType='number-pad'
-														onChangeText={(val) => onChange(val)}
-														value={value}
-													/>
-												)}
-												name="weight"
-												rules={{ required: 'Field is required' }}
+
+								<FormControl isRequired isInvalid={'weight' in errors} marginBottom="2">
+									<FormControl.Label>
+										<Text bold color="general.900" fontSize="16">Weight</Text>
+									</FormControl.Label>
+									<Controller
+										control={control}
+										render={({ field: { onChange, onBlur, value } }) => (
+											<Input
+												onBlur={onBlur}
+												color="general.900"
+												borderWidth="2"
+												borderColor='secondary.600'
+												_focus={{ borderColor: 'secondary.900' }}
+												placeholder="Ex.: 40"
+												keyboardType='number-pad'
+												onChangeText={(val) => onChange(val)}
+												value={value}
 											/>
-											<FormControl.ErrorMessage>
-												{errors.weight?.message}
-											</FormControl.ErrorMessage>
-										</FormControl>
-									)
-								}
-							</Box>
-						)
-					}
+										)}
+										name="weight"
+										rules={{ required: 'Field is required' }}
+									/>
+									<FormControl.ErrorMessage>
+										{errors.weight?.message}
+									</FormControl.ErrorMessage>
+								</FormControl>
 
-					{
-						showWorkouts && (
-							<FormControl isRequired isInvalid={'workoutId' in errors}>
-								<FormControl.Label>Workouts</FormControl.Label>
-								
-								<Controller
-									control={control}
-									render={({ field: { onChange } }) => (
-										<FlatList
-											height="20%"
-											data={workouts}
-											showsVerticalScrollIndicator={true}
-											scrollEnabled={true}
-											indicatorStyle='white'
-											renderItem={({ item }) => {
-												return (
-													<>
-														<Radio.Group
-															name="workoutId"
-															onChange={(val) => onChange(val)}>
-															<Radio
-																value={item.id}
-																marginY={2}
-																size="sm"
-																_checked={{
-																	backgroundColor: 'secondary.900'
-																}}
-															>
-																<Text color="general.900" fontSize="18">
-																	{item.name}
-																</Text>
-															</Radio>
-														</Radio.Group>
-														<FormControl.ErrorMessage>
-															{errors.workoutId?.message}
-														</FormControl.ErrorMessage>
-													</>
-												)
-											}}
-										/>
-									)}
-									name="workoutId"
-									rules={{ required: 'Workout is required' }}
-								/>
-							</FormControl>
-						)
-					}
-
-					{
-						!showWorkouts && (
-							<Stack>
 								<Pressable
 									onPress={handleSubmit(handleShowWorkouts)}
 									backgroundColor='primary.700'
@@ -240,52 +269,10 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 										color='white'
 										fontWeight='bold'
 										fontSize="16">Choose workout playlist</Text>
-								</Pressable></Stack>
-						)
-					}
-
-					{
-						!showWorkouts ? null : (
-							<Stack>
-								<Pressable
-									onPress={handleSubmit(handleShowModalToAddExerciseToWorkoutList)}
-									backgroundColor='primary.700'
-									padding="4"
-									marginTop="5"
-									borderRadius="8"
-									width='100%'
-									alignItems='center'
-									justifyContent='center'
-									borderWidth="2"
-									borderColor="secondary.900"
-								>
-									<Text
-										color='white'
-										fontWeight='bold'
-										fontSize="16">Add</Text>
 								</Pressable>
-								<Pressable
-									onPress={handleGoBackToForm}
-									backgroundColor='primary.700'
-									padding="4"
-									marginTop="5"
-									borderRadius="8"
-									width='100%'
-									alignItems='center'
-									justifyContent='center'
-									borderWidth="2"
-									borderColor="secondary.900"
-									flexDirection="row"
-								>
-									<Icon as={FontAwesome} name="chevron-left" marginRight="2" />
-									<Text
-										color='white'
-										fontWeight='bold'
-										fontSize="16">Go back to form</Text>
-								</Pressable>
-							</Stack>
-						)
-					}
+							</ScrollView>
+						</View>
+					)}
 
 					<Modal isOpen={showModal} onClose={() => setShowModal(false)}>
 						<Modal.Content maxWidth="400px">
