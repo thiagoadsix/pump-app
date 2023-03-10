@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/thiagoadsix/pump-app/compare/v1.2.3...v1.3.0) (2023-03-10)
+
+
+### Features
+
+* **react-native:** add react-native and install reactotron to the new project ([ccb766d](https://github.com/thiagoadsix/pump-app/commit/ccb766d7033971ea7382f0a3ef340a0096c137a7))
+
 ### [1.2.3](https://github.com/thiagoadsix/pump-app/compare/v1.2.2...v1.2.3) (2023-03-09)
 
 ### [1.2.2](https://github.com/thiagoadsix/pump-app/compare/v1.2.1...v1.2.2) (2023-03-07)
