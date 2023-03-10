@@ -24,10 +24,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.pp.mobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "84c7d8fa-b844-4ed2-8e42-dc2430c1e59e"
+      }
+    },
+    "owner": "thiago.adisx"
   }
 }
