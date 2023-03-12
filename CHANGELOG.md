@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/thiagoadsix/pump-app/compare/v1.3.0...v1.4.0) (2023-03-12)
+
+
+### Features
+
+* **axios:** add axios dependency ([291de7c](https://github.com/thiagoadsix/pump-app/commit/291de7c1a06d7f837bfbe641f15967e51d829a3f))
+
 ## [1.3.0](https://github.com/thiagoadsix/pump-app/compare/v1.2.3...v1.3.0) (2023-03-10)
 
 
