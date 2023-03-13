@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Box, HStack, Input, Pressable, Text } from 'native-base'
+import { TestIds, useInterstitialAd } from 'react-native-google-mobile-ads'
 
 import { api } from '../api/axios'
 import { Ionicons } from '@expo/vector-icons'
@@ -8,17 +9,39 @@ import { HomeScreenParamList } from '../routes/app.routes'
 import { useAuth } from '../hooks/useAuth'
 import { useWorkout } from '../hooks/useWorkout'
 
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy'
+
 export function CreateWorkoutScreen({ navigation }: NativeStackScreenProps<HomeScreenParamList, 'CreateWorkoutScreen'>) {
 	const [workoutName, setWorkoutName] = useState<string>('')
 	const { user } = useAuth()
 	const { setWorkouts } = useWorkout()
 
+	const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitId, {
+		requestNonPersonalizedAdsOnly: true,
+	})
+
 	const handleCreatePress = async () => {
-		await api.post('local/workouts', { name: workoutName, userId: user.id })
-		const workouts = await api.get(`local/workouts/user/${user.id}`)
-		setWorkouts(workouts.data)
-		navigation.navigate('WorkoutsScreen')
+		if (isLoaded) {
+			show()
+		}
 	}
+
+	useEffect(() => {
+		load()
+	}, [user.id, load])
+
+	useEffect(() => {
+		async function createWorkout() {
+			await api.post('local/workouts', { name: workoutName, userId: user.id })
+			const workouts = await api.get(`local/workouts/user/${user.id}`)
+			setWorkouts(workouts.data)
+		}
+
+		if (isClosed) {
+			createWorkout()
+			navigation.navigate('WorkoutsScreen')
+		}
+	}, [isClosed, navigation])
 
 	return (
 		<>
