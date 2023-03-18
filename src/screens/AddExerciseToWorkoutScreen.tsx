@@ -4,11 +4,14 @@ import { ScrollView, KeyboardAvoidingView, Image, Text, Input, Pressable, FlatLi
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Controller, useForm } from 'react-hook-form'
+import { TestIds, useInterstitialAd } from 'react-native-google-mobile-ads'
 
 import { api } from '../api/axios'
 import { Workout } from '../entities'
 import { HomeScreenParamList } from '../routes/app.routes'
 import { useAuth } from '../hooks/useAuth'
+
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy'
 
 export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScreenProps<HomeScreenParamList, 'AddExerciseToWorkoutScreen'>) {
 	const { exercise } = route.params
@@ -22,12 +25,24 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 
 	const { repetitions, series, weight, workoutId } = getValues()
 
+	const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitId, {
+		requestNonPersonalizedAdsOnly: true,
+	})
+
 	useEffect(() => {
 		api.get(`/local/workouts/user/${user.id}`)
 			.then(result => {
 				setWorkouts(result.data)
-			}).catch(error => {throw error})
-	}, [user.id])
+			}).catch(error => { throw error })
+
+		load()
+	}, [user.id, load])
+
+	useEffect(() => {
+		if (isClosed) {
+			setShowModal(true)
+		}
+	}, [isClosed, showModal, navigation])
 
 	const handleAddExerciseToWorkoutList = async () => {
 		await api.post(`local/workouts/${workoutId}/user/${user.id}/exercise`, { sets: [{ id: exercise.id, repetitions, series, weight: exercise.equipment !== 'body weight' ? weight : 0 }] })
@@ -36,7 +51,9 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 	}
 
 	const handleShowModalToAddExerciseToWorkoutList = async () => {
-		setShowModal(true)
+		if (isLoaded) {
+			show()
+		}
 	}
 
 	const handleShowWorkouts = async () => {
@@ -88,7 +105,7 @@ export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScr
 						<>
 							<FormControl isRequired isInvalid={'workoutId' in errors}>
 								<FormControl.Label>Workouts</FormControl.Label>
-						
+
 								<Controller
 									control={control}
 									render={({ field: { onChange } }) => (

@@ -2,6 +2,9 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8333238844262290~6520523739'
 
 import { Exercise, Set, Workout } from '../entities'
 
@@ -13,6 +16,7 @@ import { CreateWorkoutScreen } from '../screens/CreateWorkoutScreen'
 import { AddExerciseToWorkoutScreen } from '../screens/AddExerciseToWorkoutScreen'
 import { ExerciseDetailScreen } from '../screens/ExerciseDetailScreen'
 import { WorkoutExerciseDetailScreen } from '../screens/WorkoutExerciseDetailScreen'
+import { View } from 'native-base'
 
 export interface SetExercise extends Set {
 	exercise: Exercise
@@ -48,7 +52,6 @@ export type WorkoutsScreenParamList = {
 };
 
 const HomeStack = createStackNavigator<HomeScreenParamList>()
-// const WorkoutsStack = createStackNavigator<WorkoutsScreenParamList>()
 const Tab = createBottomTabNavigator()
 
 const HomeStackScreen = () => (
@@ -91,57 +94,49 @@ const HomeStackScreen = () => (
 	</HomeStack.Navigator>
 )
 
-// const WorkoutsStackScreen = () => (
-// 	<WorkoutsStack.Navigator
-// 		screenOptions={{ headerShown: false }}
-// 		initialRouteName="WorkoutsScreen"
-// 	>
-// 		<WorkoutsStack.Screen
-// 			name="WorkoutsScreen"
-// 			component={WorkoutsScreen}
-// 		/>
-// 	</WorkoutsStack.Navigator>
-// )
-
 export const AppRoutes: React.FC = () => {
 	return (
-		<Tab.Navigator
-			screenOptions={({ route }) => ({
-				headerShown: false,
-				tabBarIcon: ({ focused }) => {
-					let iconName: 'home' | 'home-outline' | 'barbell' | 'barbell-outline' = 'home'
+		<View style={{ flex: 1 }}>
+			<Tab.Navigator
+				screenOptions={({ route }) => ({
+					headerShown: false,
+					tabBarIcon: ({ focused }) => {
+						let iconName: 'home' | 'home-outline' | 'barbell' | 'barbell-outline' = 'home'
 
-					if (route.name === 'Home') {
-						iconName = focused ? 'home' : 'home-outline'
-					} else if (route.name === 'Workouts') {
-						iconName = focused ? 'barbell' : 'barbell-outline'
-					}
+						if (route.name === 'Home') {
+							iconName = focused ? 'home' : 'home-outline'
+						} else if (route.name === 'Workouts') {
+							iconName = focused ? 'barbell' : 'barbell-outline'
+						}
 
-					return <Ionicons name={iconName} size={24} color="#00E9D6" />
-				},
-				tabBarStyle: {
-					backgroundColor: '#212121',
-					borderTopColor: '#212121',
-				},
-				tabBarActiveTintColor: '#00E9D6',
-			})}
-		>
-			<Tab.Screen
-				listeners={({ navigation }) => ({
-					tabPress: (event) => {
-						event.preventDefault()
-						navigation.navigate('HomeScreen')
+						return <Ionicons name={iconName} size={24} color="#00E9D6" />
 					},
+					tabBarStyle: {
+						backgroundColor: '#212121',
+						borderTopColor: '#212121',
+					},
+					tabBarActiveTintColor: '#00E9D6',
 				})}
-				name='Home'
-				component={HomeStackScreen}
-				options={{ tabBarLabel: 'Home' }}
+			>
+				<Tab.Screen
+					listeners={({ navigation }) => ({
+						tabPress: (event) => {
+							event.preventDefault()
+							navigation.navigate('HomeScreen')
+						},
+					})}
+					name='Home'
+					component={HomeStackScreen}
+					options={{ tabBarLabel: 'Home' }}
+				/>
+			</Tab.Navigator>
+			<BannerAd
+				unitId={adUnitId}
+				size={BannerAdSize.FULL_BANNER}
+				requestOptions={{
+					requestNonPersonalizedAdsOnly: true,
+				}}
 			/>
-			{/* <Tab.Screen
-				name='Workouts'
-				component={WorkoutsStackScreen}
-				options={{ tabBarLabel: 'Workouts' }}
-			/> */}
-		</Tab.Navigator>
+		</View>
 	)
 }

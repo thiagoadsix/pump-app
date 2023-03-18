@@ -24,6 +24,7 @@ import {
 	Poppins_900Black_Italic,
 	useFonts
 } from '@expo-google-fonts/poppins'
+
 import { theme } from './theme'
 import { AuthContextProvider } from './src/contexts/AuthContext'
 import { Routes } from './src/routes'
