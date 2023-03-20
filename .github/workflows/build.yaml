@@ -23,8 +23,8 @@ jobs:
       - name: 📦 Install dependencies
         run: npm i
 
-      - name: 📄 Create app.json
-        run: npm run app:json
+      # - name: 📄 Create app.json
+      #   run: npm run app:json
 
       - name: 🚀 Build app
         run: eas build --non-interactive --platform android
