@@ -1,6 +1,6 @@
 {
   "name": "pp-mobile",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
