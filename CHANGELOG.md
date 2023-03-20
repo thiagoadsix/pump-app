@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/thiagoadsix/pump-app/compare/v1.5.0...v1.5.1) (2023-03-20)
+
+
+### Bug Fixes
+
+* **merge:** merge branchs locally ([1b7f0ec](https://github.com/thiagoadsix/pump-app/commit/1b7f0ecb266e9207c2b6e2c1973ba86236867310))
+
 ## [1.5.0](https://github.com/thiagoadsix/pump-app/compare/v1.2.3...v1.5.0) (2023-03-20)
 
 
