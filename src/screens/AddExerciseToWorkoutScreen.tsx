@@ -5,13 +5,14 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Controller, useForm } from 'react-hook-form'
 import { TestIds, useInterstitialAd } from 'react-native-google-mobile-ads'
+import Constants from 'expo-constants'
 
 import { api } from '../api/axios'
 import { Workout } from '../entities'
 import { HomeScreenParamList } from '../routes/app.routes'
 import { useAuth } from '../hooks/useAuth'
 
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy'
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : Constants?.manifest?.extra?.adMobInterstitialId
 
 export function AddExerciseToWorkoutScreen({ navigation, route }: NativeStackScreenProps<HomeScreenParamList, 'AddExerciseToWorkoutScreen'>) {
 	const { exercise } = route.params

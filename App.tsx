@@ -25,10 +25,11 @@ import {
 	useFonts
 } from '@expo-google-fonts/poppins'
 
-import { theme } from './theme'
 import { AuthContextProvider } from './src/contexts/AuthContext'
 import { Routes } from './src/routes'
 import { WorkoutContextProvider } from './src/contexts/WorkoutContext'
+
+import { theme } from './theme'
 
 export default function App() {
 	const [fonts] = useFonts({
