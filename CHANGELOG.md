@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.3](https://github.com/thiagoadsix/pump-app/compare/v1.5.2...v1.5.3) (2023-03-20)
+
+
+### Bug Fixes
+
+* **app.json:** add the eas object to script to create an app.json ([ec0f204](https://github.com/thiagoadsix/pump-app/commit/ec0f204b613fd118cc288a7b5e51df76621984f9))
+
 ### [1.5.2](https://github.com/thiagoadsix/pump-app/compare/v1.5.1...v1.5.2) (2023-03-20)
 
 
