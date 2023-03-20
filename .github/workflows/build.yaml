@@ -27,7 +27,7 @@ jobs:
       #   run: npm run app:json
 
       - name: 🚀 Build app
-        run: eas build --non-interactive --platform android
+        run: eas build --platform android
         env:
           AD_MOB_ANDROID_API_ID: ${{ secrets.AD_MOB_ANDROID_API_ID }}
           AD_MOB_BANNER_ID: ${{ secrets.AD_MOB_BANNER_ID }}
