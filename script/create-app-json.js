@@ -9,7 +9,10 @@ fs.writeFile(
 			extra: {
 				adMobAndroidApiId: process.env.AD_MOB_ANDROID_API_ID,
 				adMobBannerId: process.env.AD_MOB_BANNER_ID,
-				adMobInterstitialId: process.env.AD_MOB_INTERSTITIAL_ID
+				adMobInterstitialId: process.env.AD_MOB_INTERSTITIAL_ID,
+				'eas': {
+					'projectId': '779efe0e-7311-48b6-93bd-c9644034488d'
+				}
 			},
 			'name': 'pump',
 			'slug': 'pump',
