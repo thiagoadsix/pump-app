@@ -3,8 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
-
-const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8333238844262290~6520523739'
+import { View } from 'native-base'
 
 import { Exercise, Set, Workout } from '../entities'
 
@@ -16,7 +15,8 @@ import { CreateWorkoutScreen } from '../screens/CreateWorkoutScreen'
 import { AddExerciseToWorkoutScreen } from '../screens/AddExerciseToWorkoutScreen'
 import { ExerciseDetailScreen } from '../screens/ExerciseDetailScreen'
 import { WorkoutExerciseDetailScreen } from '../screens/WorkoutExerciseDetailScreen'
-import { View } from 'native-base'
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'a'
 
 export interface SetExercise extends Set {
 	exercise: Exercise

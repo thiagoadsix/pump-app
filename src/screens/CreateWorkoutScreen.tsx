@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Box, HStack, Input, Pressable, Text } from 'native-base'
 import { TestIds, useInterstitialAd } from 'react-native-google-mobile-ads'
+import Constants from 'expo-constants'
 
 import { api } from '../api/axios'
 import { Ionicons } from '@expo/vector-icons'
@@ -9,7 +10,7 @@ import { HomeScreenParamList } from '../routes/app.routes'
 import { useAuth } from '../hooks/useAuth'
 import { useWorkout } from '../hooks/useWorkout'
 
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy'
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : Constants?.manifest?.extra?.adMobInterstitialId
 
 export function CreateWorkoutScreen({ navigation }: NativeStackScreenProps<HomeScreenParamList, 'CreateWorkoutScreen'>) {
 	const [workoutName, setWorkoutName] = useState<string>('')
