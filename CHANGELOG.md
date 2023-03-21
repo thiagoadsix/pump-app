@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.9](https://github.com/thiagoadsix/pump-app/compare/v1.5.8...v1.5.9) (2023-03-21)
+
+
+### Bug Fixes
+
+* **expo:** remove --non-interactive from script ([5bd6d84](https://github.com/thiagoadsix/pump-app/commit/5bd6d84ad6916924745edcf529e81993ad25ab8d))
+
 ### [1.5.8](https://github.com/thiagoadsix/pump-app/compare/v1.5.7...v1.5.8) (2023-03-21)
 
 
