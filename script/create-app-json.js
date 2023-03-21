@@ -11,7 +11,7 @@ fs.writeFile(
 				adMobBannerId: process.env.AD_MOB_BANNER_ID,
 				adMobInterstitialId: process.env.AD_MOB_INTERSTITIAL_ID,
 				'eas': {
-					'projectId': '779efe0e-7311-48b6-93bd-c9644034488d'
+					'projectId': process.env.EXPO_EAS_PROJECT_ID
 				}
 			},
 			'name': 'pump',
@@ -56,7 +56,7 @@ fs.writeFile(
 					}
 				]
 			],
-			'owner': 'thiago.adisx'
+			'owner': 'pump-app'
 		},
 		'react-native-google-mobile-ads': {
 			android_app_id: String(process.env.AD_MOB_ANDROID_API_ID),
