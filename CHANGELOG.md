@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.13](https://github.com/thiagoadsix/pump-app/compare/v1.5.12...v1.5.13) (2023-03-21)
+
+
+### Bug Fixes
+
+* **eas-build:** create app.json after ci ([db0ff22](https://github.com/thiagoadsix/pump-app/commit/db0ff22cb55df927d5bb2028ad4bd8b647612286))
+
 ### [1.5.12](https://github.com/thiagoadsix/pump-app/compare/v1.5.11...v1.5.12) (2023-03-21)
 
 
