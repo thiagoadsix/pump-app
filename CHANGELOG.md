@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.12](https://github.com/thiagoadsix/pump-app/compare/v1.5.11...v1.5.12) (2023-03-21)
+
+
+### Bug Fixes
+
+* **app.json:** remove app.json from dir, add only with ci/cd ([e729755](https://github.com/thiagoadsix/pump-app/commit/e7297553f184b8840f2533a9f8b58f02d89917c6))
+
 ### [1.5.11](https://github.com/thiagoadsix/pump-app/compare/v1.5.10...v1.5.11) (2023-03-21)
 
 ### [1.5.10](https://github.com/thiagoadsix/pump-app/compare/v1.5.9...v1.5.10) (2023-03-21)
