@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.14](https://github.com/thiagoadsix/pump-app/compare/v1.5.13...v1.5.14) (2023-03-21)
+
+
+### Bug Fixes
+
+* **eas-build:** ad  EXPO_EAS_PROJECT_ID on build on EAS step ([496018a](https://github.com/thiagoadsix/pump-app/commit/496018abc0856f3c47fc842c26316b0036f7b35c))
+
 ### [1.5.13](https://github.com/thiagoadsix/pump-app/compare/v1.5.12...v1.5.13) (2023-03-21)
 
 
