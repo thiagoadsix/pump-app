@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.10](https://github.com/thiagoadsix/pump-app/compare/v1.5.9...v1.5.10) (2023-03-21)
+
+
+### Bug Fixes
+
+* **expo:** update the value to --platform all to android ([5064a6c](https://github.com/thiagoadsix/pump-app/commit/5064a6cfae43d0dc746f8e6a3b01459403924e1a))
+
 ### [1.5.9](https://github.com/thiagoadsix/pump-app/compare/v1.5.8...v1.5.9) (2023-03-21)
 
 
