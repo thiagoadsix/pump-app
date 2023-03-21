@@ -41,3 +41,4 @@ jobs:
           AD_MOB_ANDROID_API_ID: ${{ secrets.AD_MOB_ANDROID_API_ID }}
           AD_MOB_BANNER_ID: ${{ secrets.AD_MOB_BANNER_ID }}
           AD_MOB_INTERSTITIAL_ID: ${{ secrets.AD_MOB_INTERSTITIAL_ID }}
+          EXPO_EAS_PROJECT_ID: ${{ secrets.EXPO_EAS_PROJECT_ID }}
