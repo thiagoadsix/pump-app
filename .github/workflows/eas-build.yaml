@@ -28,7 +28,7 @@ jobs:
         run: npm ci
 
       - name: 🔨 Build on EAS
-        run: eas build --platform android
+        run: eas build --platform android --project-id ${{ secrets.EXPO_EAS_PROJECT_ID }}
         env:
           AD_MOB_ANDROID_API_ID: ${{ secrets.AD_MOB_ANDROID_API_ID }}
           AD_MOB_BANNER_ID: ${{ secrets.AD_MOB_BANNER_ID }}
