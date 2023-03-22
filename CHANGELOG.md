@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/thiagoadsix/pump-app/compare/v1.6.0...v1.7.0) (2023-03-22)
+
+
+### Features
+
+* **eas-build:** add --project-id to run the build ([cee91f9](https://github.com/thiagoadsix/pump-app/commit/cee91f9781f90b4aff23188b36257728792b7e71))
+
 ## [1.6.0](https://github.com/thiagoadsix/pump-app/compare/v1.5.18...v1.6.0) (2023-03-22)
 
 
