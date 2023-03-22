@@ -1,5 +1,13 @@
 {
   "expo": {
+    "extra": {
+      "adMobAndroidApiId": "ca-app-pub-6723797716575509~7129077560",
+      "adMobBannerId": "ca-app-pub-6723797716575509/2450346393",
+      "adMobInterstitialId": "ca-app-pub-6723797716575509/7184917884",
+      "eas": {
+        "projectId": "7e0283e9-2db7-47fa-a05a-9b7f648a65b5"
+      }
+    },
     "name": "pump",
     "slug": "pump",
     "version": "1.0.0",
