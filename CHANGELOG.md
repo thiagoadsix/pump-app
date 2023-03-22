@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.18](https://github.com/thiagoadsix/pump-app/compare/v1.5.17...v1.5.18) (2023-03-22)
+
+
+### Bug Fixes
+
+* **eas-build and app.config.json:** remove a step from github actions and use app.config.js ([a0f7909](https://github.com/thiagoadsix/pump-app/commit/a0f79096a345278bcc7aca39bdb41d49e6455772))
+
 ### [1.5.17](https://github.com/thiagoadsix/pump-app/compare/v1.5.16...v1.5.17) (2023-03-22)
 
 ### [1.5.16](https://github.com/thiagoadsix/pump-app/compare/v1.5.15...v1.5.16) (2023-03-22)
