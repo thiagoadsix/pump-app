@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.16](https://github.com/thiagoadsix/pump-app/compare/v1.5.15...v1.5.16) (2023-03-22)
+
+
+### Bug Fixes
+
+* **app.json:** update the config of app.json to app.confit.ts ([3a13982](https://github.com/thiagoadsix/pump-app/commit/3a139829efeffe772fb6feb5fe639e1bc746e9b2))
+
 ### [1.5.15](https://github.com/thiagoadsix/pump-app/compare/v1.5.14...v1.5.15) (2023-03-22)
 
 ### [1.5.14](https://github.com/thiagoadsix/pump-app/compare/v1.5.13...v1.5.14) (2023-03-21)
